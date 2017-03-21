@@ -1,0 +1,18 @@
+# Snakemake files
+/.snakemake
+/logs
+/fastq
+/mapping
+/chimeras
+/splices
+/mutations
+/reports
+/tmp
+*.svg
+
+# Commands 
+CracTools.cfg
+
+# git files
+.git
+

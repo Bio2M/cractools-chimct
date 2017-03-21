@@ -1,0 +1,18 @@
+samples:
+  paired:
+    17U: .fastq.gz
+    17W: .fastq.gz
+    17X: .fastq.gz
+    17Y: .fastq.gz
+    17Z: .fastq.gz
+    '180': .fastq.gz
+    '182': .fastq.gz
+    '183': .fastq.gz
+    '186': .fastq.gz
+    '187': .fastq.gz
+    18A: .fastq.gz
+    18B: .fastq.gz
+    18C: .fastq.gz
+    18D: .fastq.gz
+    '246': .fastq.gz
+    '247': .fastq.gz
