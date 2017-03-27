@@ -2,7 +2,7 @@
 #   GLOBAL
 ################################################################################
 
-reads_dir: "fastq"
+fastq_dir: "fastq"
     # "/data/nas/internal/2012/GATC/RNA-Seq-LAM"
 
 
@@ -48,6 +48,9 @@ hisat2:
     index: "/data/indexes/hisat2/GRCh38_with_MT"
         # /data/indexes/hisat2/GRCh38-hisat2/
 
+samtools:
+    mem: '3G'
+    threads: '4'
 
 ################################################################################
 #   READS ANALYSIS

@@ -12,9 +12,9 @@ configfile: "config.yml"
 
 # variables from configfile
 # fastx parameters
-SAMPLES = expand(config['samples']['paired'])
-R1 = config['reads_dir'] + "/{sample}1." + config['fastx_suffix'],
-R2 = config['reads_dir'] + "/{sample}2." + config['fastx_suffix'],
+SAMPLES = expand(config['samples'])
+R1 = config['reads_dir'] + "/{sample}1.fastq.gz",
+R2 = config['reads_dir'] + "/{sample}2.fastq.gz",
 # bam parameters
 BAM_DIR = config['hisat2']['output_dir']
 # gff - gtf parameters

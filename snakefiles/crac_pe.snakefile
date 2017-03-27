@@ -1,8 +1,8 @@
 # Crac alignment
 rule crac_pe:
     input:
-        r1 = config['reads_dir']+"/{sample}_1.fastq.gz",
-        r2 = config['reads_dir']+"/{sample}_2.fastq.gz",
+        r1 = config['fastq_dir']+"/{sample}_1.fastq.gz",
+        r2 = config['fastq_dir']+"/{sample}_2.fastq.gz",
     output:
         bam = config['crac']['output_dir']+"/{sample}.bam",
         bai = config['crac']['output_dir']+"/{sample}.bam.bai",
@@ -25,8 +25,12 @@ rule crac_pe:
         " -o - "
         # crac logs
         " 2> {log.stderr}"
-        # Samtools sort & index
-        " | samtools sort -@4 - -o {output.bam}"
+        # Samtools sort
+        " | samtools sort "
+        " -@" + config['samtools']['threads']
+        " -m " + config['samtools']['mem']
+        " - -o {output.bam}"
+        # index
         " && samtools index {output.bam} {output.bai} "
         # crac version
         " && crac -v | head -1 >> {log.version}"
