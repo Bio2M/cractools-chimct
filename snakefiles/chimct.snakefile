@@ -24,7 +24,7 @@ rule chimct:
         " -n {wildcards.sample}"
         " -g " + config['gtf_file'] +
         " -s " + BAM_DIR + "/{wildcards.sample}.bam"
-        " > " + config['chimct']['output_dir'] + "/{wildcards.sample}" + config['chimct']['output_suffix'] +
+        " > " + config['chimct']['output_dir'] + "/{wildcards.sample}_chimct.tsv"
         # ChimCT logs
         " 2> {log.stderr}"
         # ChimCT version

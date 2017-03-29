@@ -13,8 +13,8 @@ bed_file:
     "../manifest.bed"
 
 gtf_file: 
-    "/data/annotations/human/ensembl.gff"
-    # "/data/annotations/human/Homo_sapiens.GRCh38.83.gtf"
+    # "/data/annotations/human/ensembl.gff"
+    "/data/annotations/human/Homo_sapiens.GRCh38.83.gtf"
 
 
 version_dir: 'logs/versions'
@@ -93,7 +93,6 @@ chimct:
     output_dir:     "chimeras/chimct"
     output_suffix:  "_chimct.tsv"
     log_dir:        "logs/chimct"
-    log_suffix:     "_chimct.log"
     options:        "--verify-splice --detailed-sam  --stranded"
                     #--verify-splice --detailed-sam --stranded --keep-ig --est 
     gff:            "/data/annotations/human/ensembl.gff"
@@ -102,6 +101,18 @@ chimct:
     gsnap_genome_name: "GRCh38"
     gsnap_genome_dir: "/data/indexes/gsnap/GRCh38"
     gsnap_binary: "/data/bin/gsnap"
+
+################################################################################
+#   RNA ASSEMBLING
+################################################################################
+
+stringtie:
+    binary:         'stringtie'
+    output_dir:     'reconstruction/stringtie'
+    log_dir:        'logs/stringtie'
+    nb_threads:     '4'
+    min_length:     '200'
+    min_iso:        '0.2'
 
 
 ################################################################################
