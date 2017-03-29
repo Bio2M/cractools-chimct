@@ -2,6 +2,7 @@ __default__ :
     account : "benoit"
     partition: "debug"
     n : 10
+    log_dir: "logs/slurm"
 
 histat2_pe :
     n : 10

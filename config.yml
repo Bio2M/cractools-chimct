@@ -2,12 +2,6 @@
 #   GLOBAL
 ################################################################################
 
-fastq_dir: "fastq"
-    # "/data/nas/internal/2012/GATC/RNA-Seq-LAM"
-
-
-fastx_suffix: ""
-
 genome:
     # ""
     # "/data/genomes/GRCh37/GRCh37.fa"
@@ -16,35 +10,37 @@ genome:
 annotation_file: "/data/annotations/human/ensembl.gff"
     # "/data/annotations/human/Homo_sapiens.GRCh38.83.gtf"
 
-report_versions: "reports/tool_versions.txt"
 nb_threads: 12
 email: "benoit.guibert@free.fr"
+
+version_dir: 'logs/versions'
 
 ################################################################################
 #   MAPPING
 ################################################################################
 
 crac:
+    binary: "/data/bin/crac"
     index: "/data/indexes/crac/GRCh38/GRCh38"
     kmer_len: "22"
     output_dir: "mapping/crac"
     summary_dir: "reports/crac/summary"
     log_dir: "logs/crac"
-    options: "--bam --nb-tags-info-stored 10000 --stranded"
-        # some options : --bam --nb-tags-info-stored 1000 --stranded
+    options: "--bam --nb-tags-info-stored 10000 --stranded --detailed-sam"
+        # some options : --bam --nb-tags-info-stored 1000 --stranded  --detailed-sam
 
 bwa:
+    binary: "bwa"
     output_dir: "mapping/bwa"
     log_dir: ""
     options: ""
-    nb_threads: ""
     index: "/data/indexes/bwa/GRCh37/GRCh37.fa"
 
 hisat2:
+    binary: "hisat2"
     output_dir: "mapping/hisat2"
     log_dir: "logs/hisat2"
     options: ""
-    nb_threads: "16"
     index: "/data/indexes/hisat2/GRCh38_with_MT"
         # /data/indexes/hisat2/GRCh38-hisat2/
 
@@ -57,14 +53,17 @@ samtools:
 ################################################################################
 
 cractools:
+    binary: "cractools"
     output_dir:
         chimeras:   "chimeras/cractools"
         splices:    "splices/cractools"
         mutations:  "mutations/cractools"
     log_dir:        "logs/cractools"
-    options:        "--coverless-splices"      # --coverless-splices --stranded
+    options:        "--coverless-splices"      
+                    # --coverless-splices --stranded
 
 extract_common_chimeras:
+    binary: "extractCommonChimeras.pl"
     output_dir: "chimeras/common_chimeras"
     log_file:   "logs/extract_common_chimeras.log"
     options:    ""
@@ -74,6 +73,7 @@ extract_common_chimeras:
 ################################################################################
 
 freebayes:
+    binary: "freebayes"
     output_dir: "mutations/freebayes"
     bed:        "../manifest.bed"
     log_dir:    "logs/freebayes"
@@ -85,7 +85,7 @@ freebayes:
 ################################################################################
 
 chimct:
-    binary:         "/data/bin/chimCT"
+    binary:         "chimCT"
     output_dir:     "chimeras/chimct"
     output_suffix:  "_chimct.tsv"
     log_dir:        "logs/chimct"
@@ -94,7 +94,7 @@ chimct:
                     #--verify-splice --detailed-sam --stranded --keep-ig --est 
     gff:            "/data/annotations/human/ensembl.gff"
     nb_threads:     "12"
-    tmp_dir:        ""
+    tmp_dir:        "/tmp"
     gsnap_genome_name: "GRCh38"
     gsnap_genome_dir: "/data/indexes/gsnap/GRCh38"
     gsnap_binary: "/data/bin/gsnap"

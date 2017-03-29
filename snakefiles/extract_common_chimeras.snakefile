@@ -13,7 +13,7 @@ rule extract_common_chimeras:
         summary = config['extract_common_chimeras']['output_dir'] + "/common_chimeras_summary.txt",
     log:
         stderr = config['extract_common_chimeras']['log_file'],
-        version = config['report_versions'],
+        version = config['version_dir'] + "/extractCommonChimeras-version.txt",
     message:
         "Executing extractCommonChimeras on {input.tsv}"
     shell:
@@ -24,7 +24,7 @@ rule extract_common_chimeras:
         # extractCommonChimeras.pl logs
         " 2>{log.stderr}"
         # version
-        " && echo 'extractCommonChimeras.pl: no version available' >>{log.version}"
+        " && echo 'extractCommonChimeras.pl: no version available' > {log.version}"
 
     
 """

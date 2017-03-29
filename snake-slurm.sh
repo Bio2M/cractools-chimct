@@ -6,7 +6,7 @@
     --cluster "sbatch \
         -A {cluster.account} \
         -p {cluster.partition} \
-        -e slurm-%A.err \
-        -o slurm-%A.out \
+        -e {log_dir}/slurm-%A.err \
+        -o {log_dir}/slurm-%A.out \
         -n {cluster.n}" ;
 } 2> log.err >log.out

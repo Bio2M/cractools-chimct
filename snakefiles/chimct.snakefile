@@ -9,7 +9,7 @@ rule chimct:
         tsv = config['chimct']['output_dir']+"/{sample}_chimct.tsv",
     log: 
         stderr = config['chimct']['log_dir'] + "/{sample}_chimct.log",
-        version = config['report_versions'],
+        version = config['version_dir'] + "/chimCT-version.txt",
     threads: 
         config['nb_threads']
     message:
@@ -28,7 +28,7 @@ rule chimct:
         # ChimCT logs
         " 2> {log.stderr}"
         # ChimCT version
-        " && chimCT --version >> {log.version}"
+        " && chimCT --version > {log.version}"
 
 """
 chimCT  

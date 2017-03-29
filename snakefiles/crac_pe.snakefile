@@ -1,17 +1,21 @@
 # Crac alignment
 rule crac_pe:
     input:
-        r1 = config['fastq_dir']+"/{sample}_1.fastq.gz",
-        r2 = config['fastq_dir']+"/{sample}_2.fastq.gz",
+        r1 = FASTQ_DIR + "/{sample}_1.fastq.gz",
+        r2 = FASTQ_DIR + "/{sample}_2.fastq.gz",
     output:
         bam = config['crac']['output_dir']+"/{sample}.bam",
         bai = config['crac']['output_dir']+"/{sample}.bam.bai",
         summary = config['crac']['summary_dir'] + "/{sample}_summary.txt",
     threads: 
         config['nb_threads']
+    params:
+        tmp = "/tmp/{sample}",
     log:
         stderr = config['crac']['log_dir'] + "/{sample}_crac.log",
-        version = config['report_versions'],
+        version = config['version_dir'] + "/crac-version.txt",
+    benchmark:
+        "benchmarks/{sample}.bwa.benchmark.txt"
     message: 
         "Executing crac on the following files {input}"
     shell:
@@ -27,11 +31,12 @@ rule crac_pe:
         " 2> {log.stderr}"
         # Samtools sort
         " | samtools sort "
+        " -T {params.tmp} "
         " -@" + config['samtools']['threads']
         " -m " + config['samtools']['mem']
         " - -o {output.bam}"
-        # index
+        # samtools index
         " && samtools index {output.bam} {output.bai} "
         # crac version
-        " && crac -v | head -1 >> {log.version}"
+        " && crac -v | head -1 > {log.version}"
     

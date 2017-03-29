@@ -8,7 +8,7 @@ rule cractools_extract:
         mutations = config['cractools']['output_dir']['mutations'] + "/{sample}.vcf",
     log:
         stderr = config['cractools']['log_dir'] + "/{.sample}_cractools.log",
-        version = config['report_versions'],
+        version = config['version_dir'] + "/cractools-version.txt",
     threads:
         config['nb_threads']
     message:
@@ -26,7 +26,7 @@ rule cractools_extract:
             # Cractools logs
             " 2>{log.stderr}"
             # Cractools version
-            " && cractools --version >> {log.version}"
+            " && cractools --version > {log.version}"
         )
     
 

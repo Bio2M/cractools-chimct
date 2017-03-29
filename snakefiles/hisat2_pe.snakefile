@@ -10,7 +10,7 @@ rule hisat_pe:
         config['nb_threads']
     log:
         stderr = config['hisat2']['log_dir'] + "/{sample}_hisat.log",
-        version = config['report_versions'],
+        version = config['version_dir'] + "/hisat-version.txt",
     message: 
         "Executing hisat on the following files {input}"
     shell:
@@ -29,6 +29,6 @@ rule hisat_pe:
         " - -o {output.bam}"
         # index
         " && samtools index {output.bam} {output.bai} "
-        # crac version
-        " && hisat2 --help | head -1 | cut -d' ' -f1-3 >> {log.version}"
+        # hisat version
+        " && hisat2 --help | head -1 | cut -d' ' -f1-3 > {log.version}"
 
