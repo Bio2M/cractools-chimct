@@ -1,17 +1,21 @@
 ################################################################################
 #   GLOBAL
 ################################################################################
+email: "benoit.guibert@free.fr"
+nb_threads: 12
 
 genome:
     # ""
     # "/data/genomes/GRCh37/GRCh37.fa"
     "/data/genomes/GRCh38/GRCh38.fa"
 
-annotation_file: "/data/annotations/human/ensembl.gff"
+bed_file:
+    "../manifest.bed"
+
+gtf_file: 
+    "/data/annotations/human/ensembl.gff"
     # "/data/annotations/human/Homo_sapiens.GRCh38.83.gtf"
 
-nb_threads: 12
-email: "benoit.guibert@free.fr"
 
 version_dir: 'logs/versions'
 

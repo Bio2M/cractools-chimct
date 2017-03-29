@@ -22,7 +22,7 @@ rule chimct:
         " --gsnap-genome-directory " + config['chimct']['gsnap_genome_dir'] +
         " --gsnap-exe " + config['chimct']['gsnap_binary'] + 
         " -n {wildcards.sample}"
-        " -g " + ANNOTATION_FILE +
+        " -g " + config['gtf_file'] +
         " -s " + BAM_DIR + "/{wildcards.sample}.bam"
         " > " + config['chimct']['output_dir'] + "/{wildcards.sample}" + config['chimct']['output_suffix'] +
         # ChimCT logs

@@ -14,7 +14,7 @@ rule freebayes:
     shell:
         "freebayes"
         + config['freebayes']['options'] +
-        " -t " + config['freebayes']['bed'] +
+        " -t " + config['bed_file'] +
         " -f " + config['genome'] +
         " {input.bam}"
         " > {output.vcf}"
