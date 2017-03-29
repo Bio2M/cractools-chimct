@@ -1,10 +1,12 @@
 #!/bin/bash
 
-snakemake \
-	-np \
-	-j 99 \
-	--cluster-config cluster.yml \
-	--cluster "sbatch \
+{ time snakemake \
+    -j 99 \
+    --cluster-config cluster.yml \
+    --cluster "sbatch \
         -A {cluster.account} \
         -p {cluster.partition} \
-    	-n {cluster.n}"
+        -e slurm-%A.err \
+        -o slurm-%A.out \
+        -n {cluster.n}" ;
+} 2> log.err >log.out
