@@ -12,7 +12,7 @@ genome:
 bed_file:
     "../manifest.bed"
 
-gtf_file: 
+gtf_ref:
     # "/data/annotations/human/ensembl.gff"
     "/data/annotations/human/Homo_sapiens.GRCh38.83.gtf"
 
@@ -27,9 +27,9 @@ crac:
     binary: "/data/bin/crac"
     index: "/data/indexes/crac/GRCh38/GRCh38"
     kmer_len: "22"
-    output_dir: "mapping/crac"
-    summary_dir: "reports/crac/summary"
-    log_dir: "logs/crac"
+    output_dir: 'mapping/crac'
+    summary_dir: 'reports/crac/summary'
+    log_dir: 'logs/crac'
     options: "--bam --nb-tags-info-stored 10000 --stranded --detailed-sam"
         # some options : --bam --nb-tags-info-stored 1000 --stranded  --detailed-sam
 
@@ -103,16 +103,28 @@ chimct:
     gsnap_binary: "/data/bin/gsnap"
 
 ################################################################################
-#   RNA ASSEMBLING
+#   RNA RECONSTRUCTION
 ################################################################################
 
 stringtie:
     binary:         'stringtie'
     output_dir:     'reconstruction/stringtie'
+    output_merge:   'unannotated_lncRNA_primarymerge.gtf'
     log_dir:        'logs/stringtie'
     nb_threads:     '4'
     min_length:     '200'
     min_iso:        '0.2'
+
+################################################################################
+#   RNA ANNOTATION
+################################################################################
+
+bedtools:
+    binary:             'bedtools'
+    output_dir:         'annotation/bedtools'
+    output_subtrack:    'unannotated_lincRNA_minusgenes.gtf'
+    log_dir:            'logs/bedtools'
+    options:            '-A'
 
 
 ################################################################################

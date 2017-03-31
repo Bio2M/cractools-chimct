@@ -3,7 +3,8 @@ rule stringtie_merge:
     input:
         gtf = expand(config['stringtie']['output_dir'] + "/{sample}.gtf", sample=SAMPLES)
     output:
-        gtf = config['stringtie']['output_dir'] + "/unannotated_MSClnc_primarymerge.gtf",
+        # gtf = config['stringtie']['output_dir'] + "/unannotated_lncRNA_primarymerge.gtf",
+        gtf = config['stringtie']['output_dir'] + "/" + config['stringtie']['output_merge'],
     log:
         stderr = config['stringtie']['log_dir'] + "/stringtie-merge.log",
         version = config['version_dir'] + "/stringtie-version.txt",
@@ -14,7 +15,7 @@ rule stringtie_merge:
         " --merge {input.gtf}"
         " -f " + config['stringtie']['min_iso'] +
         " -m " + config['stringtie']['min_length'] +
-        " -G " + config['gtf_file'] +
+        " -G " + config['gtf_ref'] +
         " -o {output.gtf}" 
         # logs
         " 2> {log.stderr} |"

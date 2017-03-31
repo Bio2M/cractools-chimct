@@ -33,10 +33,11 @@ SNAKEMAKE_VERSION = subprocess.check_output("snakemake --version", shell=True)
 # include: "snakefiles/cractools_extract.snakefile"
 # include: "snakefiles/chimct.snakefile"
 # include: "snakefiles/extract_common_chimeras.snakefile"
-include: "snakefiles/hisat2_pe.snakefile"
+include: 'snakefiles/hisat2_pe.snakefile'
 # include: "snakefiles/freebayes.snakefile"
-include: "snakefiles/stringtie.snakefile"
-include: "snakefiles/stringtie_merge.snakefile"
+include: 'snakefiles/stringtie.snakefile'
+include: 'snakefiles/stringtie_merge.snakefile'
+include: 'snakefiles/bedtools_subtrack.snakefile'
 
 
 rule all:
@@ -46,8 +47,9 @@ rule all:
         # expand(config['chimct']['output_dir']+"/{sample}_chimct.tsv", sample=SAMPLES),
         # expand(config['cractools']['output_dir']['mutations']+"/{sample}.vcf", sample=SAMPLES),
         # config['extract_common_chimeras']['output_dir'] + "/common_chimeras.txt",
-        expand(config['stringtie']['output_dir'] + "/{sample}.gtf", sample=SAMPLES),
-        config['stringtie']['output_dir'] + "/unannotated_MSClnc_primarymerge.gtf"
+        # expand(config['stringtie']['output_dir'] + "/{sample}.gtf", sample=SAMPLES),
+        # config['stringtie']['output_dir'] + "/" + config['stringtie']['output_merge']
+        config['bedtools']['output_dir'] + "/" + config['bedtools']['output_subtrack']
     log:
         version = config['version_dir'] + "/snakemake.txt",
     shell:

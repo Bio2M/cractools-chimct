@@ -16,7 +16,7 @@ rule stringtie:
         " -f " + config['stringtie']['min_iso'] +
         " -m " + config['stringtie']['min_length'] +
         " -p {threads}"
-        " -G " + config['gtf_file'] +
+        " -G " + config['gtf_ref'] +
         " -o {output.gtf}" 
         # logs
         " 2> {log.stderr} |"
