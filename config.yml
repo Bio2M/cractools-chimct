@@ -121,11 +121,25 @@ stringtie:
 
 bedtools:
     binary:             'bedtools'
-    output_dir:         'annotation/bedtools'
-    output_subtrack:    'unannotated_lincRNA_minusgenes.gtf'
     log_dir:            'logs/bedtools'
-    options:            '-A'
+    # subtrack
+    output_subtrack:    'annotation/unannotated_lincRNA_minusgenes.gtf'
+    subtract_options:   '-A'
+    # intersect
+    output_intersect:   'annotation/unannotated_lincRNA_intersect.gtf'
+    intersect_options:  '-aw -u -S'
 
+gtf_exon_remove:
+    binary:             'perl ~/bin/gtf_exon_remove.pl'
+    output_file:        'annotation/unannotated_lincRNA_v2.gtf'
+    log_file:           'logs/gtf_exon_remove.err'
+    options:            ''
+
+gffread:
+    binary:             'gffread'
+    output_file:        'annotation/unannotated_lincRNA_v2.fa'
+    log_file:           'logs/gffread.err'
+    options:            ''
 
 ################################################################################
 #   ABUNDANCE
