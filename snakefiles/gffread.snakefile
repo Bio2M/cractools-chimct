@@ -10,7 +10,8 @@ gffread unannotated_MSClinc_v2.gtf \
 
 rule gffread:
     input:
-        config['gtf_exon_remove']['output_file'],
+        gtf = config['gtf_exon_remove']['output_file'],
+        ref = config['genome'],
     output:
         config['gffread']['output_file'],
     log:
@@ -21,10 +22,11 @@ rule gffread:
     shell:
         config['gffread']['binary'] + 
         config['gffread']['options'] +
-        " {input}"
-        " > {output}"
+        " {input.gtf}"
+        " -g {input.ref}"
+        " -w {output}"
         # logs
-        " 2> {log.stderr} |"
+        " 2> {log.stderr}"
         # gffread version
         # no version options, because part of cufflinks ?
 

@@ -2,7 +2,7 @@
 #   GLOBAL
 ################################################################################
 email: "benoit.guibert@free.fr"
-nb_threads: 12
+nb_threads: 6
 
 genome:
     # ""
@@ -14,7 +14,7 @@ bed_file:
 
 gtf_ref:
     # "/data/annotations/human/ensembl.gff"
-    "/data/annotations/human/Homo_sapiens.GRCh38.83.gtf"
+    "/data/annotations/human/Homo_sapiens.GRCh38.86.gtf"
 
 
 version_dir: 'logs/versions'
@@ -45,12 +45,12 @@ hisat2:
     output_dir: "mapping/hisat2"
     log_dir: "logs/hisat2"
     options: ""
-    index: "/data/indexes/hisat2/GRCh38_with_MT"
+    index: "/data/indexes/hisat2/GRCh38-hisat2/GRCh38"
         # /data/indexes/hisat2/GRCh38-hisat2/
 
 samtools:
     mem: '3G'
-    threads: '4'
+    threads: '1'
 
 ################################################################################
 #   READS ANALYSIS
@@ -127,10 +127,10 @@ bedtools:
     subtract_options:   '-A'
     # intersect
     output_intersect:   'annotation/unannotated_lincRNA_intersect.gtf'
-    intersect_options:  '-aw -u -S'
+    intersect_options:  '-wa -u -S'
 
 gtf_exon_remove:
-    binary:             'perl ~/bin/gtf_exon_remove.pl'
+    binary:             'perl /data/bin/gtf_exon_remove.pl'
     output_file:        'annotation/unannotated_lincRNA_v2.gtf'
     log_file:           'logs/gtf_exon_remove.err'
     options:            ''

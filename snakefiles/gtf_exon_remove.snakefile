@@ -26,7 +26,7 @@ rule gtf_exon_remove:
         " {input}"
         " > {output}"
         # logs
-        " 2> {log.stderr} |"
+        " 2> {log.stderr}"
         # gtf_exon_remove version
 
 

@@ -10,8 +10,8 @@ bedtools intersect \
     -a unannotated_MSClnc_primarymerge.gtf \
     ­-b /data/annotations/human/Homo_sapiens.GRCh38.86.gtf > test
     
-Devrait donner les transcripts reconstruits pour lequels il y a overlap antisens (meme sur une très petite partie)
-entre mes recontructions et les gènes connus.
+Devrait donner les transcripts reconstruits pour lequels il y a overlap antisens 
+(meme sur une très petite partie) entre mes recontructions et les gènes connus.
 Comme ça on devrait avoir des liste pour chaque catégories.
 """
 
@@ -28,12 +28,13 @@ rule bedtools_intersect:
         "Executing bedtools on file unannotated_lncRNA_primarymerge"
     shell:
         config['bedtools']['binary'] + 
-        config['bedtools']['intersect_options'] +
+        " intersect "
+        + config['bedtools']['intersect_options'] +
         " -a {input.a}"
         " -b {input.b}"
         " > {output}"
         # logs
-        " 2> {log.stderr} |"
+        " 2> {log.stderr}"
         # bedtools version
         " && bedtools --version > {log.version}"
 

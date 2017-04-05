@@ -13,12 +13,13 @@ rule stringtie:
         "Executing stringtie on the following files {input}"
     shell:
         config['stringtie']['binary'] +
+        " {input.bam}"
         " -f " + config['stringtie']['min_iso'] +
         " -m " + config['stringtie']['min_length'] +
         " -p {threads}"
         " -G " + config['gtf_ref'] +
         " -o {output.gtf}" 
         # logs
-        " 2> {log.stderr} |"
+        " 2> {log.stderr} "
         # stringtie version
         " && echo 'stringtie version $(stringtie --version)' > {log.version}"

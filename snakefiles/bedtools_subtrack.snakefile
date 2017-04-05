@@ -22,12 +22,13 @@ rule bedtools_subtrack:
         "Executing bedtools on file unannotated_lncRNA_primarymerge"
     shell:
         config['bedtools']['binary'] + 
-        config['bedtools']['subtract_options'] +
+        " subtract "
+        + config['bedtools']['subtract_options'] +
         " -a {input.a}"
         " -b {input.b}"
         " > {output}"
         # logs
-        " 2> {log.stderr} |"
+        " 2> {log.stderr}"
         # bedtools version
         " && bedtools --version > {log.version}"
 

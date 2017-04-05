@@ -18,6 +18,6 @@ rule stringtie_merge:
         " -G " + config['gtf_ref'] +
         " -o {output.gtf}" 
         # logs
-        " 2> {log.stderr} |"
+        " 2> {log.stderr}"
         # stringtie version
         " && echo 'stringtie version $(stringtie --version)' > {log.version}"
