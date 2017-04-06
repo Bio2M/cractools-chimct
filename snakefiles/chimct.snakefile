@@ -3,26 +3,28 @@
 # ChimCT
 rule chimct:
     input:
-        bam = BAM_DIR+"/{sample}.bam",
+        bam = BAM_DIR + "/{sample}.bam",
         gff = config['chimct']['gff'],
     output:
         tsv = config['chimct']['output_dir']+"/{sample}_chimct.tsv",
+        summary = config['chimct']['summary_dir'] + "/{sample}_chimct.summary",
     log: 
         stderr = config['chimct']['log_dir'] + "/{sample}_chimct.log",
         version = config['version_dir'] + "/chimCT-version.txt",
     threads: 
-        config['nb_threads']
+        THREADS,
     message:
         "Executing chimCT on {input.bam}",
     shell:
-        config['chimct']['binary']
-        + config['chimct']['options'] +
+        config['chimct']['binary'] + " "
+        + config['chimct']['options'] + " "
+        " --summary={output.summary}"
         " --gsnap-nb-threads {threads}"
         " --gsnap-genome-name " + config['chimct']['gsnap_genome_name'] +
         " --gsnap-genome-directory " + config['chimct']['gsnap_genome_dir'] +
         " --gsnap-exe " + config['chimct']['gsnap_binary'] + 
         " -n {wildcards.sample}"
-        " -g " + config['gtf_ref'] +
+        " -g " + GFF_REF +
         " -s " + BAM_DIR + "/{wildcards.sample}.bam"
         " > " + config['chimct']['output_dir'] + "/{wildcards.sample}_chimct.tsv"
         # ChimCT logs

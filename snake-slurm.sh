@@ -6,8 +6,6 @@
     --cluster "sbatch \
         -A {cluster.account} \
         -p {cluster.partition} \
-        -e slurm-%A.err \
-        -o slurm-%A.out \
         -n {cluster.n}" ;
 } 2> log.err >log.out
 
@@ -17,4 +15,4 @@
 slurm_dir=logs/slurm
 
 [ -d "$slurm_dir" ] || mkdir -p $slurm_dir
-mv slurm-*.{out,err} $slurm_dir
+mv slurm-*.out $slurm_dir

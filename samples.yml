@@ -1,9 +1,6 @@
 fastq_dir:
-    /data/raw-data/fastq/irmb-GSM
+    /students/BIO2M/commun/LAM_Sauvageau/sra/Homo_sapiens/PRJNA278767/fastq_GSM
 samples:
-    SRR3534845-GSM2154694: ''
-    SRR3534842-GSM2154691: ''
-    SRR3534843-GSM2154692: ''
-    SRR3534841-GSM2154690: ''
-    SRR3534846-GSM2154695: ''
-    SRR3534844-GSM2154693: ''
+    GSM1636927: ''
+    GSM1636928: ''
+    # GSM1636929: ''

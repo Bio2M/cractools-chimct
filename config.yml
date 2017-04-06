@@ -2,7 +2,7 @@
 #   GLOBAL
 ################################################################################
 email: "benoit.guibert@free.fr"
-nb_threads: 6
+nb_threads: 12
 
 genome:
     # ""
@@ -24,7 +24,7 @@ version_dir: 'logs/versions'
 ################################################################################
 
 crac:
-    binary: "/data/bin/crac"
+    binary: "crac"
     index: "/data/indexes/crac/GRCh38/GRCh38"
     kmer_len: "22"
     output_dir: 'mapping/crac'
@@ -49,8 +49,8 @@ hisat2:
         # /data/indexes/hisat2/GRCh38-hisat2/
 
 samtools:
-    mem: '3G'
-    threads: '1'
+    mem: '2G'
+    threads: '4'
 
 ################################################################################
 #   READS ANALYSIS
@@ -63,14 +63,16 @@ cractools:
         splices:    "splices/cractools"
         mutations:  "mutations/cractools"
     log_dir:        "logs/cractools"
+    nb_threads:     4
     options:        "--coverless-splices"      
                     # --coverless-splices --stranded
 
 extract_common_chimeras:
-    binary: "extractCommonChimeras.pl"
-    output_dir: "chimeras/common_chimeras"
-    log_file:   "logs/extract_common_chimeras.log"
-    options:    ""
+    binary:         "extractCommonChimeras.pl"
+    output_dir:     "chimeras/common_chimeras"
+    log_file:       "logs/extract_common_chimeras.log"
+    # option_genome:  True
+    options:        ""
 
 ################################################################################
 #   VARIANT CALLING
@@ -89,18 +91,20 @@ freebayes:
 ################################################################################
 
 chimct:
-    binary:         "chimCT"
-    output_dir:     "chimeras/chimct"
-    output_suffix:  "_chimct.tsv"
-    log_dir:        "logs/chimct"
-    options:        "--verify-splice --detailed-sam  --stranded"
-                    #--verify-splice --detailed-sam --stranded --keep-ig --est 
-    gff:            "/data/annotations/human/ensembl.gff"
-    nb_threads:     "12"
-    tmp_dir:        "/tmp"
-    gsnap_genome_name: "GRCh38"
-    gsnap_genome_dir: "/data/indexes/gsnap/GRCh38"
-    gsnap_binary: "/data/bin/gsnap"
+    binary:             "chimCT"
+    output_dir:         "chimeras/chimct"
+    output_suffix:      "_chimct.tsv"
+    log_dir:            "logs/chimct"
+    gff:                "/data/annotations/human/ensembl.gff"
+    tmp_dir:            "/tmp"
+    gsnap_binary:       "gsnap"
+    gsnap_genome_name:  "GRCh38"
+    gsnap_genome_dir:   "/data/indexes/gsnap/GRCh38"
+    #gsnap_threads:      12
+    summary_dir:       "reports/chimct"
+    #option_rename:  'stranded'
+    options:            "--verify-splice --detailed-sam  --stranded"
+                        #--verify-splice --detailed-sam --stranded --keep-ig --est 
 
 ################################################################################
 #   RNA RECONSTRUCTION

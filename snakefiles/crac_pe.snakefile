@@ -4,11 +4,11 @@ rule crac_pe:
         r1 = FASTQ_DIR + "/{sample}_1.fastq.gz",
         r2 = FASTQ_DIR + "/{sample}_2.fastq.gz",
     output:
-        bam = config['crac']['output_dir']+"/{sample}.bam",
-        bai = config['crac']['output_dir']+"/{sample}.bam.bai",
-        summary = config['crac']['summary_dir'] + "/{sample}_summary.txt",
+        bam = BAM_DIR + "/{sample}.bam",
+        bai = BAM_DIR + "/{sample}.bam.bai",
+        summary = SUMMARY_CRAC_DIR + "/{sample}.summary",
     threads: 
-        config['nb_threads']
+        THREADS,
     params:
         tmp = "/tmp/{sample}",
     log:
@@ -32,8 +32,8 @@ rule crac_pe:
         # Samtools sort
         " | samtools sort "
         " -T {params.tmp} "
-        " -@" + config['samtools']['threads']
-        " -m " + config['samtools']['mem']
+        " -@" + config['samtools']['threads'] +
+        " -m " + config['samtools']['mem'] +
         " - -o {output.bam}"
         # samtools index
         " && samtools index {output.bam} {output.bai} "

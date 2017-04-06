@@ -1,0 +1,57 @@
+"""
+Date: Fabruary 2017
+"""
+
+# Config file
+configfile: "config.yml"
+configfile: "samples.yml"
+
+
+################################################################################
+# PARAMETERS FROM CONFIGFILES
+################################################################################
+
+# global inputs
+GENOME = config['genome']
+# GTF_REF = config['gtf_ref']
+THREADS = config['nb_threads']
+
+# crac parameters
+FASTQ_DIR = config['fastq_dir']
+SAMPLES = expand(config['samples'])
+BAM_DIR = config['crac']['output_dir']
+SUMMARY_CRAC_DIR = config['crac']['summary_dir']
+
+# chimct
+GFF_REF = config['chimct']['gff']
+
+
+
+TSV_FILES = expand(config['chimct']['output_dir']+"/{sample}"+config['chimct']['output_suffix'], sample=SAMPLES)
+
+# other
+EMAIL = config['email']
+
+################################################################################
+
+# includes
+include: "snakefiles/crac_pe.snakefile"
+include: "snakefiles/cractools_extract.snakefile"
+include: "snakefiles/chimct.snakefile"
+include: "snakefiles/extract_common_chimeras.snakefile"
+
+rule all:
+    input:
+        # expand(config['crac']['output_dir']+"/{sample}.bam", sample=SAMPLES),                 # crac
+        # expand(config['chimct']['output_dir']+"/{sample}_chimct.tsv", sample=SAMPLES),        # chimct
+        expand(config['cractools']['output_dir']['mutations']+"/{sample}.vcf", sample=SAMPLES), # cractools
+        config['extract_common_chimeras']['output_dir'] + "/common_chimeras.txt",               # extractCommonChimeras
+
+onsuccess:
+    print("Workflow finished, no error")
+    shell('mail -s "$HOSTNAME: Workflow finished, no error" ' + EMAIL + ' < {log}')
+
+onerror:
+    print("An error occured, pas glop!")
+    shell('mail -s "$HOSTNAME: an error occurred on Workflow" ' + EMAIL + ' < {log}')
+

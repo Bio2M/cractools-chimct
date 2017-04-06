@@ -7,27 +7,26 @@ rule cractools_extract:
         splices = config['cractools']['output_dir']['splices'] + "/{sample}_splices.bed",
         mutations = config['cractools']['output_dir']['mutations'] + "/{sample}.vcf",
     log:
-        stderr = config['cractools']['log_dir'] + "/{.sample}_cractools.log",
+        stderr = config['cractools']['log_dir'] + "/{sample}_cractools.log",
         version = config['version_dir'] + "/cractools-version.txt",
     threads:
-        config['nb_threads']
+        #config['cractools']['nb_threads'],
+        THREADS,
     message:
         "Executing cractools on {input}"
-    run:
-        if config['genome']:
-            params += " -r " + config['genome']
-        shell(
-            "cractools extract "
-            + config['cractools']['options'] +
-            " -p {threads}"
-            " -s {output.splices}"
-            " -c {output.chimeras}"
-            " -m {output.mutations}"
-            # Cractools logs
-            " 2>{log.stderr}"
-            # Cractools version
-            " && cractools --version > {log.version}"
-        )
+    shell:
+        "cractools extract "
+        + config['cractools']['options'] +
+        " -r " + GENOME +
+        " -p {threads}"
+        " -s {output.splices}"
+        " -c {output.chimeras}"
+        " -m {output.mutations}"
+        # Cractools logs
+        " 2>{log.stderr}"
+        # Cractools version
+        " && cractools --version > {log.version}"
+
     
 
 
