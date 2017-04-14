@@ -8,11 +8,13 @@ rule chimct:
     output:
         tsv = config['chimct']['output_dir']+"/{sample}_chimct.tsv",
         summary = config['chimct']['summary_dir'] + "/{sample}_chimct.summary",
+    threads: 
+        THREADS,
     log: 
         stderr = config['chimct']['log_dir'] + "/{sample}_chimct.log",
         version = config['version_dir'] + "/chimCT-version.txt",
-    threads: 
-        THREADS,
+    benchmark:
+        "benchmarks/chimct/{sample}_chimct.benchmark"
     message:
         "Executing chimCT on {input.bam}",
     shell:

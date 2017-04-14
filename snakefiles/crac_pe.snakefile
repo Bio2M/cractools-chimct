@@ -15,7 +15,7 @@ rule crac_pe:
         stderr = config['crac']['log_dir'] + "/{sample}_crac.log",
         version = config['version_dir'] + "/crac-version.txt",
     benchmark:
-        "benchmarks/{sample}.bwa.benchmark.txt"
+        "benchmarks/crac/{sample}_crac.benchmark"
     message: 
         "Executing crac on the following files {input}"
     shell:
@@ -29,12 +29,15 @@ rule crac_pe:
         " -o - "
         # crac logs
         " 2> {log.stderr}"
+        # Samtools sam to bam
+        " | samtools view -bS -"
         # Samtools sort
         " | samtools sort "
         " -T {params.tmp} "
-        " -@" + config['samtools']['threads'] +
+        " -@ " + config['samtools']['threads'] +
         " -m " + config['samtools']['mem'] +
-        " - -o {output.bam}"
+        " -" 
+        " -o {output.bam}"
         # samtools index
         " && samtools index {output.bam} {output.bai} "
         # crac version

@@ -1,6 +1,10 @@
 # Global snakefile
 """
+Author: B. Guibert
+Affiliation: BIO2M
+Aim: projet Leucegeme
 Date: Fabruary 2017
+Run: ./snake-slurm.sh 
 """
 
 import subprocess

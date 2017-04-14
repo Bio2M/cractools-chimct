@@ -30,7 +30,7 @@ crac:
     output_dir: 'mapping/crac'
     summary_dir: 'reports/crac/summary'
     log_dir: 'logs/crac'
-    options: "--bam --nb-tags-info-stored 10000 --stranded --detailed-sam"
+    options: "--nb-tags-info-stored 10000 --stranded --detailed-sam"
         # some options : --bam --nb-tags-info-stored 1000 --stranded  --detailed-sam
 
 bwa:
@@ -59,9 +59,9 @@ samtools:
 cractools:
     binary: "cractools"
     output_dir:
-        chimeras:   "chimeras/cractools"
-        splices:    "splices/cractools"
-        mutations:  "mutations/cractools"
+        chimeras:   "cractools/chimeras"
+        splices:    "cractools/splices"
+        mutations:  "cractools/mutations"
     log_dir:        "logs/cractools"
     nb_threads:     4
     options:        "--coverless-splices"      
@@ -69,7 +69,7 @@ cractools:
 
 extract_common_chimeras:
     binary:         "extractCommonChimeras.pl"
-    output_dir:     "chimeras/common_chimeras"
+    output_dir:     "extract_common_chimeras"
     log_file:       "logs/extract_common_chimeras.log"
     # option_genome:  True
     options:        ""
@@ -92,7 +92,7 @@ freebayes:
 
 chimct:
     binary:             "chimCT"
-    output_dir:         "chimeras/chimct"
+    output_dir:         "chimct"
     output_suffix:      "_chimct.tsv"
     log_dir:            "logs/chimct"
     gff:                "/data/annotations/human/ensembl.gff"

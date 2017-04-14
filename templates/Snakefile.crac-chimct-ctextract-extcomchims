@@ -44,14 +44,14 @@ rule all:
     input:
         # expand(config['crac']['output_dir']+"/{sample}.bam", sample=SAMPLES),                 # crac
         # expand(config['chimct']['output_dir']+"/{sample}_chimct.tsv", sample=SAMPLES),        # chimct
-        expand(config['cractools']['output_dir']['mutations']+"/{sample}.vcf", sample=SAMPLES), # cractools
-        config['extract_common_chimeras']['output_dir'] + "/common_chimeras.txt",               # extractCommonChimeras
+        expand(config['cractools']['output_dir']['mutations']+"/{sample}_mutations.vcf", sample=SAMPLES), # cractools
+        config['extract_common_chimeras']['output_dir'] + "/extract_common_chimeras.txt",       # extractCommonChimeras
 
 onsuccess:
     print("Workflow finished, no error")
-    shell('mail -s "$HOSTNAME: Workflow finished, no error" ' + EMAIL + ' < {log}')
+    # shell('mail -s "$HOSTNAME: Workflow finished, no error" ' + EMAIL + ' < {log}')
 
 onerror:
     print("An error occured, pas glop!")
-    shell('mail -s "$HOSTNAME: an error occurred on Workflow" ' + EMAIL + ' < {log}')
+    # shell('mail -s "$HOSTNAME: an error occurred on Workflow" ' + EMAIL + ' < {log}')
 
