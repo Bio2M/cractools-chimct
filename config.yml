@@ -80,7 +80,7 @@ extract_common_chimeras:
 
 freebayes:
     binary: "freebayes"
-    output_dir: "mutations/freebayes"
+    output_dir: "freebayes"
     bed:        "../manifest.bed"
     log_dir:    "logs/freebayes"
     options:    "" 
@@ -93,7 +93,7 @@ freebayes:
 chimct:
     binary:             "chimCT"
     output_dir:         "chimct"
-    output_suffix:      "_chimct.tsv"
+    output_suffix:      "-chimct.tsv"
     log_dir:            "logs/chimct"
     gff:                "/data/annotations/human/ensembl.gff"
     tmp_dir:            "/tmp"
@@ -101,8 +101,8 @@ chimct:
     gsnap_genome_name:  "GRCh38"
     gsnap_genome_dir:   "/data/indexes/gsnap/GRCh38"
     #gsnap_threads:      12
-    summary_dir:       "reports/chimct"
-    #option_rename:  'stranded'
+    summary_dir:        "reports/chimct"
+    #option_rename:     'stranded'
     options:            "--verify-splice --detailed-sam  --stranded"
                         #--verify-splice --detailed-sam --stranded --keep-ig --est 
 

@@ -19,7 +19,8 @@ rule chimct:
         "Executing chimCT on {input.bam}",
     shell:
         config['chimct']['binary'] + " "
-        + config['chimct']['options'] + " "
+        + config['chimct']['options'] +
+        " --tmp-dir " + config['chimct']['tmp_dir'] +
         " --summary={output.summary}"
         " --gsnap-nb-threads {threads}"
         " --gsnap-genome-name " + config['chimct']['gsnap_genome_name'] +
