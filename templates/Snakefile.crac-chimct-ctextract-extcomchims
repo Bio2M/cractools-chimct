@@ -43,9 +43,9 @@ include: "snakefiles/extract_common_chimeras.snakefile"
 rule all:
     input:
         # expand(config['crac']['output_dir']+"/{sample}.bam", sample=SAMPLES),                 # crac
-        # expand(config['chimct']['output_dir']+"/{sample}_chimct.tsv", sample=SAMPLES),        # chimct
-        expand(config['cractools']['output_dir']['mutations']+"/{sample}_mutations.vcf", sample=SAMPLES), # cractools
-        config['extract_common_chimeras']['output_dir'] + "/extract_common_chimeras.txt",       # extractCommonChimeras
+        # expand(config['chimct']['output_dir']+"/{sample}" + config['chimct']['output_suffix'], sample=SAMPLES),        # chimct
+        expand(config['cractools']['output_dir']['mutations']+"/{sample}" + config['cractools']['output_suffix']['mutations'], sample=SAMPLES), # cractools
+        config['extract_common_chimeras']['output_dir'] + config['extract_common_chimeras']['output_file'],       # extractCommonChimeras
 
 onsuccess:
     print("Workflow finished, no error")

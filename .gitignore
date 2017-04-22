@@ -1,14 +1,7 @@
 # Snakemake files
 /.snakemake
-/logs
 /fastq
-/mapping
-/chimeras
-/splices
-/mutations
-/reports
-/annotation
-/reconstruction
+/output
 /tmp
 *.svg
 
@@ -18,3 +11,5 @@ CracTools.cfg
 # git files
 .git
 
+# temp files
+*.swp

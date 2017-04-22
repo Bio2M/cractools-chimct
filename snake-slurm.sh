@@ -12,7 +12,7 @@
 
 # Move slurm output in logs directory
 
-slurm_dir=logs/slurm
+slurm_dir=output/logs/slurm
 
 [ -d "$slurm_dir" ] || mkdir -p $slurm_dir
 mv slurm-*.out $slurm_dir

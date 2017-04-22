@@ -4,8 +4,8 @@ rule cractools_extract:
         bam = BAM_DIR+"/{sample}.bam",
     output:
         chimeras = config['cractools']['output_dir']['chimeras'] + "/{sample}" + config['cractools']['output_suffix']['chimeras'],
-        splices = config['cractools']['output_dir']['splices'] + "/{sample}" + config['cractools']['output_suffix']['chimeras'],
-        mutations = config['cractools']['output_dir']['mutations'] + "/{sample}" + config['cractools']['output_suffix']['chimeras'],
+        splices = config['cractools']['output_dir']['splices'] + "/{sample}" + config['cractools']['output_suffix']['splices'],
+        mutations = config['cractools']['output_dir']['mutations'] + "/{sample}" + config['cractools']['output_suffix']['mutations'],
     log:
         stderr = config['cractools']['log_dir'] + "/{sample}-cractools.log",
         version = config['version_dir'] + "/cractools-version.txt",
