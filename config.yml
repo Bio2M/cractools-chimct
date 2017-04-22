@@ -27,23 +27,23 @@ crac:
     binary: "crac"
     index: "/data/indexes/crac/GRCh38/GRCh38"
     kmer_len: "22"
-    output_dir: 'mapping/crac'
-    summary_dir: 'reports/crac/summary'
-    log_dir: 'logs/crac'
+    output_dir: 'output/mapping/crac'
+    summary_dir: 'output/reports/crac/summary'
+    log_dir: 'output/logs/crac'
     options: "--nb-tags-info-stored 10000 --stranded --detailed-sam"
         # some options : --bam --nb-tags-info-stored 1000 --stranded  --detailed-sam
 
 bwa:
     binary: "bwa"
-    output_dir: "mapping/bwa"
+    output_dir: "output/mapping/bwa"
     log_dir: ""
     options: ""
     index: "/data/indexes/bwa/GRCh37/GRCh37.fa"
 
 hisat2:
     binary: "hisat2"
-    output_dir: "mapping/hisat2"
-    log_dir: "logs/hisat2"
+    output_dir: "output/mapping/hisat2"
+    log_dir: "output/logs/hisat2"
     options: ""
     index: "/data/indexes/hisat2/GRCh38-hisat2/GRCh38"
         # /data/indexes/hisat2/GRCh38-hisat2/
@@ -59,18 +59,24 @@ samtools:
 cractools:
     binary: "cractools"
     output_dir:
-        chimeras:   "cractools/chimeras"
-        splices:    "cractools/splices"
-        mutations:  "cractools/mutations"
-    log_dir:        "logs/cractools"
+        chimeras:   "output/cractools/chimeras"
+        splices:    "output/cractools/splices"
+        mutations:  "output/cractools/mutations"
+    output_suffix:
+        chimeras:   "-chimeras.tsv"
+        splices:    "-splices.bed"
+        mutations:  "-mutations.vcf"
+    log_dir:        "output/logs/cractools"
     nb_threads:     4
     options:        "--coverless-splices"      
                     # --coverless-splices --stranded
 
 extract_common_chimeras:
     binary:         "extractCommonChimeras.pl"
-    output_dir:     "extract_common_chimeras"
-    log_file:       "logs/extract_common_chimeras.log"
+    output_dir:     "output/extract-common-chimeras"
+    output_file:    "extract-common-chimeras.txt"
+    log_file:       "output/logs/extract-common-chimeras.log"
+    summary_file:   "extract-common-chimeras-summary.txt"
     # option_genome:  True
     options:        ""
 
@@ -80,9 +86,9 @@ extract_common_chimeras:
 
 freebayes:
     binary: "freebayes"
-    output_dir: "freebayes"
+    output_dir: "output/freebayes"
     bed:        "../manifest.bed"
-    log_dir:    "logs/freebayes"
+    log_dir:    "output/logs/freebayes"
     options:    "" 
                 # "-C 10 -F 0.008"
 
@@ -92,16 +98,16 @@ freebayes:
 
 chimct:
     binary:             "chimCT"
-    output_dir:         "chimct"
+    output_dir:         "output/chimct"
     output_suffix:      "-chimct.tsv"
-    log_dir:            "logs/chimct"
+    log_dir:            "output/logs/chimct"
     gff:                "/data/annotations/human/ensembl.gff"
     tmp_dir:            "/tmp"
     gsnap_binary:       "gsnap"
     gsnap_genome_name:  "GRCh38"
     gsnap_genome_dir:   "/data/indexes/gsnap/GRCh38"
     #gsnap_threads:      12
-    summary_dir:        "reports/chimct"
+    summary_dir:        "output/reports/chimct"
     #option_rename:     'stranded'
     options:            "--verify-splice --detailed-sam  --stranded"
                         #--verify-splice --detailed-sam --stranded --keep-ig --est 
@@ -112,9 +118,9 @@ chimct:
 
 stringtie:
     binary:         'stringtie'
-    output_dir:     'reconstruction/stringtie'
+    output_dir:     'output/stringtie'
     output_merge:   'unannotated_lncRNA_primarymerge.gtf'
-    log_dir:        'logs/stringtie'
+    log_dir:        'output/logs/stringtie'
     nb_threads:     '4'
     min_length:     '200'
     min_iso:        '0.2'
@@ -125,24 +131,24 @@ stringtie:
 
 bedtools:
     binary:             'bedtools'
-    log_dir:            'logs/bedtools'
+    log_dir:            'output/logs/bedtools'
     # subtrack
-    output_subtrack:    'annotation/unannotated_lincRNA_minusgenes.gtf'
+    output_subtrack:    'output/bedtools/unannotated_lincRNA_minusgenes.gtf'
     subtract_options:   '-A'
     # intersect
-    output_intersect:   'annotation/unannotated_lincRNA_intersect.gtf'
+    output_intersect:   'output/bedtools/unannotated_lincRNA_intersect.gtf'
     intersect_options:  '-wa -u -S'
 
 gtf_exon_remove:
     binary:             'perl /data/bin/gtf_exon_remove.pl'
-    output_file:        'annotation/unannotated_lincRNA_v2.gtf'
-    log_file:           'logs/gtf_exon_remove.err'
+    output_file:        'output/gtf_exon_remove/unannotated_lincRNA_v2.gtf'
+    log_file:           'output/logs/gtf_exon_remove.err'
     options:            ''
 
 gffread:
     binary:             'gffread'
-    output_file:        'annotation/unannotated_lincRNA_v2.fa'
-    log_file:           'logs/gffread.err'
+    output_file:        'output/gffread/unannotated_lincRNA_v2.fa'
+    log_file:           'output/logs/gffread.err'
     options:            ''
 
 ################################################################################
@@ -155,4 +161,3 @@ kallisto:
     output_dir: "output/kallisto"
     log_dir: ""
     options: ""
-

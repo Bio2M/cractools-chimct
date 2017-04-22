@@ -1,1 +1,1 @@
-templates/Snakefile.crac-chimct-ctextract-extcomchims
+templates/Snakefile.hisat-freeb-extcomchim-chimct-cractools

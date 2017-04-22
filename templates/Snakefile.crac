@@ -10,18 +10,17 @@ Run: ./snake-slurm.sh
 import subprocess
 
 # Config file
-configfile: "samples-stranded-3.yml"
 configfile: "config.yml"
-
+configfile: "samples.yml"
 
 # variables from configfile
 # fastq parameters
 FASTQ_DIR = config['fastq_dir']
 SAMPLES = expand(config['samples'])
 # bam parameters
-BAM_DIR = config['hisat2']['output_dir']
+BAM_DIR = config['crac']['output_dir']
 # gff - gtf parameters
-ANNOTATION_FILE = config['annotation_file']
+GTF_REF = config['gtf_ref']
 # tsv params
 TSV_FILES = expand(config['chimct']['output_dir']+"/{sample}"+config['chimct']['output_suffix'], sample=SAMPLES)
 # others

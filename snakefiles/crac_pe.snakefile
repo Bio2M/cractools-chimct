@@ -6,9 +6,9 @@ rule crac_pe:
     output:
         bam = BAM_DIR + "/{sample}.bam",
         bai = BAM_DIR + "/{sample}.bam.bai",
-        summary = SUMMARY_CRAC_DIR + "/{sample}.summary",
+        summary = config['crac']['summary_dir'] + "/{sample}.summary",
     threads: 
-        THREADS,
+        config['nb_threads'],
     params:
         tmp = "/tmp/{sample}",
     log:
