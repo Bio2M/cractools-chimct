@@ -9,6 +9,8 @@ rule stringtie:
     log:
         stderr = config['stringtie']['log_dir'] + "/{sample}_stringtie.log",
         version = config['version_dir'] + "/stringtie-version.txt",
+    benchmark:
+        "output/benchmarks/stringtie/{sample}_stringtie.benchmark"
     message: 
         "Executing stringtie on the following files {input}"
     shell:

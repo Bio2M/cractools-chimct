@@ -2,6 +2,7 @@
 /.snakemake
 /fastq
 /output
+/input
 /tmp
 *.svg
 

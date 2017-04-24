@@ -8,6 +8,8 @@ rule stringtie_merge:
     log:
         stderr = config['stringtie']['log_dir'] + "/stringtie-merge.log",
         version = config['version_dir'] + "/stringtie-version.txt",
+    benchmark:
+        "output/benchmarks/stringtie_merge/stringtie_merge.benchmark"
     message: 
         "Executing stringtie on the following files {input}"
     shell:

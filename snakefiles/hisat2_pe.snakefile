@@ -11,6 +11,8 @@ rule hisat_pe:
     log:
         stderr = config['hisat2']['log_dir'] + "/{sample}_hisat.log",
         version = config['version_dir'] + "/hisat-version.txt",
+    benchmark:
+        "output/benchmarks/hisat/{sample}_hisat.benchmark"
     message: 
         "Executing hisat on the following files {input}"
     shell:

@@ -9,6 +9,8 @@ rule cractools_extract:
     log:
         stderr = config['cractools']['log_dir'] + "/{sample}-cractools.log",
         version = config['version_dir'] + "/cractools-version.txt",
+    benchmark:
+        "output/benchmarks/cractools/{sample}_cractools_extract.benchmark"
     threads:
         #config['cractools']['nb_threads'],
         config['nb_threads'],

@@ -17,6 +17,8 @@ rule gffread:
     log:
         stderr = config['gffread']['log_file'],
         version = config['version_dir'] + "/gffread-version.txt",
+    benchmark:
+        "output/benchmarks/gffread/gffread.benchmark"
     message: 
         "Executing gffread"
     shell:

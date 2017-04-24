@@ -15,7 +15,7 @@ rule crac_pe:
         stderr = config['crac']['log_dir'] + "/{sample}_crac.log",
         version = config['version_dir'] + "/crac-version.txt",
     benchmark:
-        "benchmarks/crac/{sample}_crac.benchmark"
+        "output/benchmarks/crac/{sample}_crac.benchmark"
     message: 
         "Executing crac on the following files {input}"
     shell:

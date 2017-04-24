@@ -24,6 +24,8 @@ rule bedtools_intersect:
     log:
         stderr = config['bedtools']['log_dir'] + "/bedtools-intersect.err",
         version = config['version_dir'] + "/bedtools-version.txt",
+    benchmark:
+        "output/benchmarks/bedtools/{sample}_bedtools_intersect.benchmark"
     message: 
         "Executing bedtools on file unannotated_lncRNA_primarymerge"
     shell:

@@ -18,6 +18,8 @@ rule gtf_exon_remove:
     log:
         stderr = config['gtf_exon_remove']['log_file'],
         version = config['version_dir'] + "/gtf_exon_remove-version.txt",
+    benchmark:
+        "output/benchmarks/gtf_exon_remove/gtf_exon_remove.benchmark"
     message: 
         "Executing gtf_exon_remove"
     shell:

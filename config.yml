@@ -73,10 +73,9 @@ cractools:
 
 extract_common_chimeras:
     binary:         "extractCommonChimeras.pl"
-    output_dir:     "output/extract_common_chimeras"
-    output_file:    "extract_common_chimeras.txt"
+    output_file:    "output/extract_common_chimeras/extract_common_chimeras.txt"
+    summary_file:   "output/extract_common_chimeras/extract_common_chimeras.summary"
     log_file:       "output/logs/extract_common_chimeras.log"
-    summary_file:   "extract_common_chimeras_summary.txt"
     # option_genome:  True
     options:        ""
 

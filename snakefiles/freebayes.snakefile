@@ -9,6 +9,8 @@ rule freebayes:
     log:
         stderr = config['freebayes']['log_dir'] + '/{sample}_freebayes.log',
         version = config['version_dir'] + '/freebayes-version.txt',
+    benchmark:
+        "output/benchmarks/freebayes/{sample}_freebayes.benchmark"
     message: 
         "Executing freebayes on the following files {input.bam}"
     shell:

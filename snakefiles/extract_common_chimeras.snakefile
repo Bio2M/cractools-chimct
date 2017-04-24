@@ -9,20 +9,21 @@ rule extract_common_chimeras:
     input:
         tsv = TSV_FILES,
     output:
-        common_chim = config['extract_common_chimeras']['output_dir'] + config['extract_common_chimeras']['output_file'],
-        summary = config['extract_common_chimeras']['output_dir'] + config['extract_common_chimeras']['summary_file'],
+        ext_common_chim = config['extract_common_chimeras']['output_file'],
+    params:
+        summary = config['extract_common_chimeras']['summary_file'],
     log:
         stderr = config['extract_common_chimeras']['log_file'],
         version = config['version_dir'] + "/extractCommonChimeras-version.txt",
     benchmark:
-        "benchmarks/extract_common_chimeras.benchmark"
+        "output/benchmarks/extract_common_chimeras.benchmark"
     message:
         "Executing extractCommonChimeras on {input.tsv}"
     shell:
         config['extract_common_chimeras']['binary'] +
-        " --summary {output.summary}"
+        " --summary {params.summary}"
+        " --output {output.ext_common_chim}"
         " {input.tsv}"
-        " > {output.common_chim}"
         # extractCommonChimeras.pl logs
         " 2>{log.stderr}"
         # version

@@ -14,7 +14,7 @@ rule chimct:
         stderr = config['chimct']['log_dir'] + "/{sample}-chimct.log",
         version = config['version_dir'] + "/chimCT-version.txt",
     benchmark:
-        "benchmarks/chimct/{sample}_chimct.benchmark"
+        "output/benchmarks/chimct/{sample}_chimct.benchmark"
     message:
         "Executing chimCT on {input.bam}",
     shell:
