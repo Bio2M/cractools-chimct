@@ -28,7 +28,7 @@ crac:
     index: "/data/indexes/crac/GRCh38/GRCh38"
     kmer_len: "22"
     output_dir: 'output/mapping/crac'
-    summary_dir: 'output/reports/crac/summary'
+    summary_dir: 'output/reports/crac'
     log_dir: 'output/logs/crac'
     options: "--nb-tags-info-stored 10000 --stranded --detailed-sam"
         # some options : --bam --nb-tags-info-stored 1000 --stranded  --detailed-sam
@@ -63,9 +63,9 @@ cractools:
         splices:    "output/cractools/splices"
         mutations:  "output/cractools/mutations"
     output_suffix:
-        chimeras:   "-chimeras.tsv"
-        splices:    "-splices.bed"
-        mutations:  "-mutations.vcf"
+        chimeras:   "_chimeras.tsv"
+        splices:    "_splices.bed"
+        mutations:  "_mutations.vcf"
     log_dir:        "output/logs/cractools"
     nb_threads:     4
     options:        "--coverless-splices"      
@@ -73,10 +73,10 @@ cractools:
 
 extract_common_chimeras:
     binary:         "extractCommonChimeras.pl"
-    output_dir:     "output/extract-common-chimeras"
-    output_file:    "extract-common-chimeras.txt"
-    log_file:       "output/logs/extract-common-chimeras.log"
-    summary_file:   "extract-common-chimeras-summary.txt"
+    output_dir:     "output/extract_common_chimeras"
+    output_file:    "extract_common_chimeras.txt"
+    log_file:       "output/logs/extract_common_chimeras.log"
+    summary_file:   "extract_common_chimeras_summary.txt"
     # option_genome:  True
     options:        ""
 
