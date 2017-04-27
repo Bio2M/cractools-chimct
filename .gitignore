@@ -5,6 +5,8 @@
 /input
 /tmp
 *.svg
+*.err
+*.out
 
 # Commands 
 CracTools.cfg

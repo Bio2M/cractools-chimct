@@ -8,6 +8,8 @@ rule hisat_pe:
         bai = config['hisat2']['output_dir']+"/{sample}.bam.bai",
     threads: 
         config['nb_threads']
+    params:
+        tmp = "/tmp/{sample}",
     log:
         stderr = config['hisat2']['log_dir'] + "/{sample}_hisat.log",
         version = config['version_dir'] + "/hisat-version.txt",
@@ -26,6 +28,7 @@ rule hisat_pe:
         # Samtools sort
         " samtools view -bS - |"
         " samtools sort "
+        " -T {params.tmp} "
         " -@" + config['samtools']['threads'] +
         " -m " + config ['samtools']['mem'] +
         " - -o {output.bam}"
