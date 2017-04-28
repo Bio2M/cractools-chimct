@@ -25,7 +25,6 @@ GTF_REF = config['gtf_ref']
 TSV_FILES = expand(config['chimct']['output_dir']+"/{sample}"+config['chimct']['output_suffix'], sample=SAMPLES)
 # others
 EMAIL = config['email']
-SNAKEMAKE_VERSION = subprocess.check_output("snakemake --version", shell=True)
 
 
 # includes
@@ -47,9 +46,10 @@ rule all:
         # expand(config['chimct']['output_dir']+"/{sample}_chimct.tsv", sample=SAMPLES),
         #expand(config['cractools']['output_dir']['mutations']+"/{sample}.vcf", sample=SAMPLES),
         #config['extract_common_chimeras']['output_dir'] + "/common_chimeras.txt",
-
-    version:
-        SNAKEMAKE_VERSION
+    log:
+        version = "output/snakemake.version",
+    shell:
+        "echo snakemake versions $(snakemake --version) > {log.version}"
 
 onsuccess:
     print("Workflow finished, no error")

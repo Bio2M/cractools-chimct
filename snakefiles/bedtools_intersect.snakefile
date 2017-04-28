@@ -17,21 +17,23 @@ Comme ça on devrait avoir des liste pour chaque catégories.
 
 rule bedtools_intersect:
     input:
-        a = config['stringtie']['output_dir'] + "/unannotated_lncRNA_primarymerge.gtf",
+        a = config['stringtie']['merge_gtf_file'],
         b = config['gtf_ref'],
     output:
-        config['bedtools']['output_intersect'],
+        config['bedtools']['intersect_gtf_file'],
     log:
-        stderr = config['bedtools']['log_dir'] + "/bedtools-intersect.err",
-        version = config['version_dir'] + "/bedtools-version.txt",
+        stderr = config['bedtools']['intersect_log_file'],
+        version = config['bedtools']['version_file'],
     benchmark:
-        "output/benchmarks/bedtools/{sample}_bedtools_intersect.benchmark"
+        config['bedtools']['intersect_benchmark_file'],
+    params:
+        binary = config['bedtools']['binary'],
+        options = config['bedtools']['intersect_options'],
     message: 
-        "Executing bedtools on file unannotated_lncRNA_primarymerge"
+        "Executing bedtools on file {input.a}"
     shell:
-        config['bedtools']['binary'] + 
-        " intersect "
-        + config['bedtools']['intersect_options'] +
+        "{params.binary} intersect"
+        " {params.options}"
         " -a {input.a}"
         " -b {input.b}"
         " > {output}"

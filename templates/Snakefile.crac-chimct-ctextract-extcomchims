@@ -22,11 +22,6 @@ SAMPLES = expand(config['samples'])
 BAM_DIR = config['crac']['output_dir']
 SUMMARY_CRAC_DIR = config['crac']['summary_dir']
 
-# chimct
-GFF_REF = config['chimct']['gff']
-
-
-
 TSV_FILES = expand(config['chimct']['output_dir']+"/{sample}"+config['chimct']['output_suffix'], sample=SAMPLES)
 
 # other
@@ -45,7 +40,11 @@ rule all:
         # expand(config['crac']['output_dir']+"/{sample}.bam", sample=SAMPLES),                 # crac
         # expand(config['chimct']['output_dir']+"/{sample}" + config['chimct']['output_suffix'], sample=SAMPLES),        # chimct
         expand(config['cractools']['output_dir']['mutations']+"/{sample}" + config['cractools']['output_suffix']['mutations'], sample=SAMPLES), # cractools
-        config['extract_common_chimeras']['output_dir'] + config['extract_common_chimeras']['output_file'],       # extractCommonChimeras
+        config['extract_common_chimeras']['output_file'],
+    log:
+        version = "output/snakemake.version",
+    shell:
+        "echo snakemake versions $(snakemake --version) > {log.version}"
 
 onsuccess:
     print("Workflow finished, no error")

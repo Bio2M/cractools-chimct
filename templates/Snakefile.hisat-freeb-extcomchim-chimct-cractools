@@ -40,16 +40,14 @@ include: "snakefiles/freebayes.snakefile"
 rule all:
     input:
         #expand(config['hisat2']['output_dir']+"/{sample}.bam", sample=config['samples']['paired']),
-        expand(config['freebayes']['output_dir']+"/{sample}.vcf", sample=config['samples']),
+        expand(config['freebayes']['output_dir'] + "/{sample}.vcf", sample=config['samples']),
         expand(config['chimct']['output_dir']+"/{sample}" + config['chimct']['output_suffix'], sample=SAMPLES),
-        expand(config['cractools']['output_dir']['mutations']+"/{sample}"+config['cractools']['output_suffix']['mutations'], sample=SAMPLES),
-        config['extract_common_chimeras']['output_dir'] + config['extract_common_chimeras']['output_file'],
+        expand(config['cractools']['output_dir']['mutations'] + "/{sample}" + config['cractools']['output_suffix']['mutations'], sample=SAMPLES),
+        config['extract_common_chimeras']['output_file'],
     log:
-        version = config['version_dir'] + "/snakemake.txt",
+        version = "output/snakemake.version",
     shell:
         "echo snakemake versions $(snakemake --version) > {log.version}"
-    #version:
-    #    SNAKEMAKE_VERSION
 
 onsuccess:
     print("Workflow finished, no error")

@@ -1,35 +1,40 @@
-
-
 # ChimCT
 rule chimct:
     input:
         bam = BAM_DIR + "/{sample}.bam",
-        gff = config['chimct']['gff'],
+        gff_ref = config['chimct']['gff_ref_file'],
     output:
-        tsv = config['chimct']['output_dir']+"/{sample}" + config['chimct']['output_suffix'],
-        summary = config['chimct']['summary_dir'] + "/{sample}-chimct.summary",
+        tsv = config['chimct']['output_dir'] + "/{sample}" + config['chimct']['output_suffix'],
+        summary = config['chimct']['summary_dir'] + "/{sample}" + config['chimct']['summary_suffix'],
     threads: 
         config['nb_threads'],
     log: 
-        stderr = config['chimct']['log_dir'] + "/{sample}-chimct.log",
-        version = config['version_dir'] + "/chimCT-version.txt",
+        stderr = config['chimct']['log_dir'] + "/{sample}_chimct.log",
+        version = config['chimct']['version_file'],
     benchmark:
-        "output/benchmarks/chimct/{sample}_chimct.benchmark"
+        config['chimct']['benchmark_dir'] + "/{sample}" + config['chimct']['benchmark_suffix']
+    params:
+        binary = config['chimct']['binary'],
+        options = config['chimct']['options'],
+        tmp_dir = config['chimct']['tmp_dir'],
+        gsnap_genome_name = config['chimct']['gsnap_genome_name'],
+        gsnap_genome_dir = config['chimct']['gsnap_genome_dir'],
+        gsnap_binary = config['chimct']['gsnap_binary'],
     message:
         "Executing chimCT on {input.bam}",
     shell:
-        config['chimct']['binary'] + " "
-        + config['chimct']['options'] +
-        " --tmp-dir " + config['chimct']['tmp_dir'] +
+        "{params.binary}"
+        " {params.options}"
+        " --tmp-dir {params.tmp_dir}"
         " --summary={output.summary}"
         " --gsnap-nb-threads {threads}"
-        " --gsnap-genome-name " + config['chimct']['gsnap_genome_name'] +
-        " --gsnap-genome-directory " + config['chimct']['gsnap_genome_dir'] +
-        " --gsnap-exe " + config['chimct']['gsnap_binary'] + 
+        " --gsnap-genome-name {params.gsnap_genome_name}"
+        " --gsnap-genome-directory {params.gsnap_genome_dir}"
+        " --gsnap-exe {params.gsnap_binary}"
         " -n {wildcards.sample}"
-        " -g " + config['chimct']['gff'] +
-        " -s " + BAM_DIR + "/{wildcards.sample}.bam"
-        " > " + config['chimct']['output_dir'] + "/{wildcards.sample}" + config['chimct']['output_suffix'] +
+        " -g {input.gff_ref}"
+        " -s {input.bam}"
+        " > {output.tsv}"
         # ChimCT logs
         " 2> {log.stderr}"
         # ChimCT version

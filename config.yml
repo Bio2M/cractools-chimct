@@ -1,114 +1,131 @@
 ################################################################################
 #   GLOBAL
 ################################################################################
-email: "benoit.guibert@free.fr"
+email:      'benoit.guibert@free.fr'
 nb_threads: 12
 
 genome:
-    # ""
-    # "/data/genomes/GRCh37/GRCh37.fa"
-    "/data/genomes/GRCh38/GRCh38.fa"
-
-bed_file:
-    "../manifest.bed"
+    # '
+    # '/data/genomes/GRCh37/GRCh37.fa'
+    '/data/genomes/GRCh38/GRCh38.fa'
 
 gtf_ref:
-    # "/data/annotations/human/ensembl.gff"
-    "/data/annotations/human/Homo_sapiens.GRCh38.86.gtf"
-
-
-version_dir: 'logs/versions'
+    # '/data/annotations/human/ensembl.gff'
+    '/data/annotations/human/Homo_sapiens.GRCh38.86.gtf'
 
 ################################################################################
 #   MAPPING
 ################################################################################
 
 crac:
-    binary: "crac"
-    index: "/data/indexes/crac/GRCh38/GRCh38"
-    kmer_len: "22"
-    output_dir: 'output/mapping/crac'
-    summary_dir: 'output/reports/crac'
-    log_dir: 'output/logs/crac'
-    options: "--nb-tags-info-stored 10000 --stranded --detailed-sam"
+    binary:         'crac'
+    index:          '/data/indexes/crac/GRCh38/GRCh38'
+    kmer_len:       '22'
+    output_dir:     'output/crac/bam'
+    benchmark_dir:  'output/crac/benchmark'
+    summary_dir:    'output/crac/summary'
+    log_dir:        'output/crac/logs'
+    version_file:   'output/crac/version/crac.version'
+    options:        '--nb-tags-info-stored 10000 --stranded --detailed-sam'
         # some options : --bam --nb-tags-info-stored 1000 --stranded  --detailed-sam
 
 bwa:
-    binary: "bwa"
-    output_dir: "output/mapping/bwa"
-    log_dir: ""
-    options: ""
-    index: "/data/indexes/bwa/GRCh37/GRCh37.fa"
+    binary:         "bwa"
+    output_dir:     "output/bwa/bam"
+    log_dir:        'output/bwa/log'
+    benchmark_dir:  'output/bwa/benchmark'
+    version_file:   'output/bwa/version/bwa.version'
+    options:        ""
+    index:          "/data/indexes/bwa/GRCh37/GRCh37.fa"
 
 hisat2:
-    binary: "hisat2"
-    output_dir: "output/mapping/hisat2"
-    log_dir: "output/logs/hisat2"
-    options: ""
-    index: "/data/indexes/hisat2/GRCh38-hisat2/GRCh38"
-        # /data/indexes/hisat2/GRCh38-hisat2/
+    index:          '/data/indexes/hisat2/GRCh38-hisat2/GRCh38'
+                    # '/data/indexes/hisat2/GRCh38-hisat2/'
+    binary:         'hisat2'
+    output_dir:     'output/hisat2/bam'
+    log_dir:        'output/hisat2/logs'
+    benchmark_dir:  'output/hisat2/benchmark'
+    version_file:   'output/hisat2/version/hisat2.version'
+    options:        ''
 
 samtools:
-    mem: '2G'
-    threads: '4'
+    mem:        '2G'
+    threads:    '4'
 
 ################################################################################
 #   READS ANALYSIS
 ################################################################################
 
 cractools:
-    binary: "cractools"
+    binary:                     'cractools'
     output_dir:
-        chimeras:   "output/cractools/chimeras"
-        splices:    "output/cractools/splices"
-        mutations:  "output/cractools/mutations"
+        chimeras:               'output/cractools/chimeras'
+        splices:                'output/cractools/splices'
+        mutations:              'output/cractools/mutations'
     output_suffix:
-        chimeras:   "_chimeras.tsv"
-        splices:    "_splices.bed"
-        mutations:  "_mutations.vcf"
-    log_dir:        "output/logs/cractools"
-    nb_threads:     4
-    options:        "--coverless-splices"      
-                    # --coverless-splices --stranded
+        chimeras:               '_chimeras.tsv'
+        splices:                '_splices.bed'
+        mutations:              '_mutations.vcf'
+    log_dir:                    'output/cractools/logs'
+    benchmark_dir:              'output/cractools/benchmark'
+    version_file:               'output/cractools/version/cractools.version'
+    nb_threads:                 4
+    options:                    '--coverless-splices'
+                                # --coverless-splices --stranded
+    extract_benchmark_dir:      'output/cractools_extract/benchmark'
+    extract_benchmark_suffix:   '_cractools_extract.benchmark'
+    extract_log_dir:            'output/cractools_extract/log'
+    extract_log_suffix:         '_cractools_extract.log'
+    extract_options:            '--coverless-splices'
+                                # --coverless-splices --stranded
 
 extract_common_chimeras:
-    binary:         "extractCommonChimeras.pl"
-    output_file:    "output/extract_common_chimeras/extract_common_chimeras.txt"
-    summary_file:   "output/extract_common_chimeras/extract_common_chimeras.summary"
-    log_file:       "output/logs/extract_common_chimeras.log"
+    binary:         'extractCommonChimeras.pl'
+    output_file:    'output/extract_common_chimeras/extract_common_chimeras.txt'
+    summary_file:   'output/extract_common_chimeras/extract_common_chimeras.summary'
+    log_file:       'output/extract_common_chimeras/extract_common_chimeras.log'
+    benchmark_file: 'output/extract_common_chimeras/extract_common_chimeras.benchmark'
+    version_file:   'output/extract_common_chimeras/version/extract_common_chimeras.version'
     # option_genome:  True
-    options:        ""
+    options:        ''
 
 ################################################################################
 #   VARIANT CALLING
 ################################################################################
 
 freebayes:
-    binary: "freebayes"
-    output_dir: "output/freebayes"
-    bed:        "../manifest.bed"
-    log_dir:    "output/logs/freebayes"
-    options:    "" 
-                # "-C 10 -F 0.008"
+    binary:         'freebayes'
+    output_dir:     'output/freebayes/vcf'
+    log_dir:        'output/freebayes/logs'
+    benchmark_dir:  'output/freebayes/benchmark'
+    version_file:   'output/freebayes/version/freebayes.version'
+    bed_ref_file:   '../manifest.bed'
+    options:        ''
+                    # "-C 10 -F 0.008"
 
 ################################################################################
 #   ANNOTATION & CLASSIFICATION
 ################################################################################
 
 chimct:
-    binary:             "chimCT"
-    output_dir:         "output/chimct"
-    output_suffix:      "-chimct.tsv"
-    log_dir:            "output/logs/chimct"
-    gff:                "/data/annotations/human/ensembl.gff"
-    tmp_dir:            "/tmp"
-    gsnap_binary:       "gsnap"
-    gsnap_genome_name:  "GRCh38"
-    gsnap_genome_dir:   "/data/indexes/gsnap/GRCh38"
+    binary:             'chimCT'
+    output_dir:         'output/chimct/tsv'
+    output_suffix:      '_chimct.tsv'
+    log_dir:            'output/chimct/logs'
+    log_suffix:         '_chimct.log'
+    benchmark_dir:      'output/chimct/benchmark'
+    benchmark_suffix:   '_chimct.benchmark'
+    version_file:       'output/chimct/version/chimct.version'
+    gff_ref_file:       '/data/annotations/human/ensembl.gff'
+    tmp_dir:            '/tmp'
+    gsnap_binary:       'gsnap'
+    gsnap_genome_name:  'GRCh38'
+    gsnap_genome_dir:   '/data/indexes/gsnap/GRCh38'
     #gsnap_threads:      12
-    summary_dir:        "output/reports/chimct"
+    summary_dir:        'output/chimct/summary'
+    summary_suffix:     '_chimct.summary'
     #option_rename:     'stranded'
-    options:            "--verify-splice --detailed-sam  --stranded"
+    options:            '--verify-splice --detailed-sam  --stranded'
                         #--verify-splice --detailed-sam --stranded --keep-ig --est 
 
 ################################################################################
@@ -116,38 +133,55 @@ chimct:
 ################################################################################
 
 stringtie:
-    binary:         'stringtie'
-    output_dir:     'output/stringtie'
-    output_merge:   'unannotated_lncRNA_primarymerge.gtf'
-    log_dir:        'output/logs/stringtie'
-    nb_threads:     '4'
-    min_length:     '200'
-    min_iso:        '0.2'
+    binary:                 'stringtie'
+    output_dir:             'output/stringtie/gtf'
+    log_dir:                'output/stringtie/logs'
+    benchmark_dir:          'output/stringtie/benchmark'
+    version_file:           'output/stringtie/version/stringtie.version'
+    nb_threads:             '4'
+    min_length:             '200'
+    min_iso:                '0.2'
+    options:                ''
+    # stringtie merge
+    merge_gtf_file:         'output/stringtie/merge/unannotated_stringtie_merge.gtf'
+    merge_log_file:         'output/stringtie/merge/unannotated_stringtie_merge.log'
+    merge_benchmark_file:   'output/stringtie/merge/unannotated_stringtie_merge.benchmark'
+    merge_options:          ''
 
 ################################################################################
 #   RNA ANNOTATION
 ################################################################################
 
 bedtools:
-    binary:             'bedtools'
-    log_dir:            'output/logs/bedtools'
+    binary:                     'bedtools'
+    log_dir:                    'output/bedtools/logs'
+    benchmark_dir:              'output/bedtools/benchmark'
+    version_file:               'output/bedtools/version/bedtools.version'
     # subtrack
-    output_subtrack:    'output/bedtools/unannotated_lincRNA_minusgenes.gtf'
-    subtract_options:   '-A'
+    subtrack_gtf_file:          'output/bedtools/bedtools_subtrack.gtf'
+    subtrack_log_file:          'output/bedtools/bedtools_subtrack.log'
+    subtrack_benchmark_file:    'output/bedtools/bedtools_benchmark.log'
+    subtract_options:           '-A'
     # intersect
-    output_intersect:   'output/bedtools/unannotated_lincRNA_intersect.gtf'
-    intersect_options:  '-wa -u -S'
+    intersect_gtf_file:         'output/bedtools/bedtools_intersect.gtf'
+    intersect_log_file:         'output/bedtools/bedtools_intersect.log'
+    intersect_benchmark_file:    'output/bedtools/bedtools_intersect.log'
+    intersect_options:          '-wa -u -S'
 
 gtf_exon_remove:
     binary:             'perl /data/bin/gtf_exon_remove.pl'
-    output_file:        'output/gtf_exon_remove/unannotated_lincRNA_v2.gtf'
-    log_file:           'output/logs/gtf_exon_remove.err'
+    output_file:        'output/gtf_exon_remove/unannotated_v2.gtf'
+    log_file:           'output/gtf_exon_remove/gtf_exon_remove.log'
+    benchmark_file:     'output/gtf_exon_remove/gtf_exon_remove.benchmark'
+    version_file:       'output/gtf_exon_remove/version/gtf_exon_remove.version'
     options:            ''
 
 gffread:
     binary:             'gffread'
     output_file:        'output/gffread/unannotated_lincRNA_v2.fa'
-    log_file:           'output/logs/gffread.err'
+    log_file:           'output/logs/gffread.log'
+    benchmark_file:     'output/gffread/gffread.benchmark'
+    version_file:       'output/gffread/version/gffread.version'
     options:            ''
 
 ################################################################################
@@ -158,5 +192,6 @@ kallisto:
     binary: ""
     index:  "/data/indexes/kallisto/GRCh38.idx"
     output_dir: "output/kallisto"
-    log_dir: ""
+    log_dir: "output/kallisto/log"
+    benchmark_dir: 'output/kallisto/benchmark'
     options: ""

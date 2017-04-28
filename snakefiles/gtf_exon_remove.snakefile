@@ -12,19 +12,22 @@ On a au final un gtf qui ne contient que ce qui ne croise pas quelque chose de c
 
 rule gtf_exon_remove:
     input:
-        config['bedtools']['output_subtrack'],
+        config['bedtools']['subtrack_gtf_file'],
     output:
         config['gtf_exon_remove']['output_file'],
     log:
         stderr = config['gtf_exon_remove']['log_file'],
-        version = config['version_dir'] + "/gtf_exon_remove-version.txt",
+        version = config['gtf_exon_remove']['version_file'],
     benchmark:
-        "output/benchmarks/gtf_exon_remove/gtf_exon_remove.benchmark"
+        config['gtf_exon_remove']['benchmark_file'],
+    params:
+        binary = config['gtf_exon_remove']['binary'],
+        options = config['gtf_exon_remove']['options'],
     message: 
         "Executing gtf_exon_remove"
     shell:
-        config['gtf_exon_remove']['binary'] + 
-        config['gtf_exon_remove']['options'] +
+        "{params.binary}"
+        " {params.options}"
         " {input}"
         " > {output}"
         # logs

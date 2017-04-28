@@ -3,41 +3,47 @@
 Date: Fabruary 2017
 """
 
-# CONFIG FILES
+import subprocess
+
+# Config file
 configfile: "samples.yml"
 configfile: "config.yml"
 
-# VARIABLES FROM CONFIGFILE
+
+# variables from configfile
+
 # fastq parameters
 FASTQ_DIR = config['fastq_dir']
 SAMPLES = expand(config['samples'])
+
 # bam parameters
 BAM_DIR = config['hisat2']['output_dir']
+
+# tsv params
+TSV_FILES = expand(config['chimct']['output_dir']+"/{sample}"+config['chimct']['output_suffix'], sample=SAMPLES)
 
 # others
 EMAIL = config['email']
 
-# INCLUDES
-include: 'snakefiles/hisat2_pe.snakefile'
-include: 'snakefiles/stringtie.snakefile'
-include: 'snakefiles/stringtie_merge.snakefile'
-include: 'snakefiles/bedtools_subtrack.snakefile'
-include: 'snakefiles/gtf_exon_remove.snakefile'
-include: 'snakefiles/gffread.snakefile'
-include: 'snakefiles/bedtools_intersect.snakefile'
+# includes
+
+#include: "snakefiles/crac_pe.snakefile"
+include: "snakefiles/cractools_extract.snakefile"
+include: "snakefiles/chimct.snakefile"
+include: "snakefiles/extract_common_chimeras.snakefile"
+include: "snakefiles/hisat2_pe.snakefile"
+include: "snakefiles/freebayes.snakefile"
+
 
 rule all:
     input:
-        # expand(config['hisat2']['output_dir']+"/{sample}.bam", sample=config['samples']['paired']),
-        # expand(config['stringtie']['output_dir'] + "/{sample}.gtf", sample=SAMPLES),
-        # config['stringtie']['output_dir'] + "/" + config['stringtie']['output_merge'],
-        # config['bedtools']['output_dir'] + "/" + config['bedtools']['output_subtrack'],
-        # config['gtf_exon_remove']['output_file'],
-        config['gffread']['output_file'],
-        config['bedtools']['output_intersect']
-        
+        #expand(config['hisat2']['output_dir']+"/{sample}.bam", sample=config['samples']['paired']),
+        expand(config['freebayes']['output_dir'] + "/{sample}.vcf", sample=config['samples']),
+        expand(config['chimct']['output_dir']+"/{sample}" + config['chimct']['output_suffix'], sample=SAMPLES),
+        expand(config['cractools']['output_dir']['mutations'] + "/{sample}" + config['cractools']['output_suffix']['mutations'], sample=SAMPLES),
+        config['extract_common_chimeras']['output_file'],
     log:
-        version = config['version_dir'] + "/snakemake.txt",
+        version = "output/snakemake.version",
     shell:
         "echo snakemake versions $(snakemake --version) > {log.version}"
 

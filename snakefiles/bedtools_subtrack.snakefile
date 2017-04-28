@@ -11,21 +11,23 @@ bedtools subtract \
 
 rule bedtools_subtrack:
     input:
-        a = config['stringtie']['output_dir'] + "/unannotated_lncRNA_primarymerge.gtf",
+        a = config['stringtie']['merge_gtf_file'],
         b = config['gtf_ref'],
     output:
-        config['bedtools']['output_subtrack'],
+        config['bedtools']['subtrack_gtf_file'],
     log:
-        stderr = config['bedtools']['log_dir'] + "/bedtools-subtrack.err",
-        version = config['version_dir'] + "/bedtools-version.txt",
+        stderr = config['bedtools']['subtrack_log_file'],
+        version = config['bedtools']['version_file'],
     benchmark:
-        "output/benchmarks/bedtools/{sample}_bedtools_subtrack.benchmark"
+        config['bedtools']['subtrack_benchmark_file'],
+    params:
+        binary = config['bedtools']['binary'],
+        options = config['bedtools']['subtract_options']
     message: 
-        "Executing bedtools on file unannotated_lncRNA_primarymerge"
+        "Executing bedtools on file {input.a}"
     shell:
-        config['bedtools']['binary'] + 
-        " subtract "
-        + config['bedtools']['subtract_options'] +
+        "{params.binary} subtract"
+        " {params.options}"
         " -a {input.a}"
         " -b {input.b}"
         " > {output}"

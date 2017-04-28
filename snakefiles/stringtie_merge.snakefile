@@ -1,23 +1,29 @@
 # Stringtie merge
 rule stringtie_merge:
     input:
-        gtf = expand(config['stringtie']['output_dir'] + "/{sample}.gtf", sample=SAMPLES)
+        gtf = expand(config['stringtie']['output_dir'] + "/{sample}_stringtie.gtf", sample=SAMPLES)
     output:
-        # gtf = config['stringtie']['output_dir'] + "/unannotated_lncRNA_primarymerge.gtf",
-        gtf = config['stringtie']['output_dir'] + "/" + config['stringtie']['output_merge'],
+        gtf = config['stringtie']['merge_gtf_file'],
     log:
-        stderr = config['stringtie']['log_dir'] + "/stringtie-merge.log",
-        version = config['version_dir'] + "/stringtie-version.txt",
+        stderr = config['stringtie']['merge_log_file'],
+        version = config['stringtie']['version_file'],
     benchmark:
-        "output/benchmarks/stringtie_merge/stringtie_merge.benchmark"
+        config['stringtie']['merge_benchmark_file'],
+    params:
+        binary = config['stringtie']['binary'],
+        options = config['stringtie']['options'],
+        min_iso = config['stringtie']['min_iso'],
+        min_len = config['stringtie']['min_length'],
+        gtf_ref = config['gtf_ref'],
     message: 
         "Executing stringtie on the following files {input}"
     shell:
-        config['stringtie']['binary'] + 
+        "{params.binary}"
+        " {params.options}"
         " --merge {input.gtf}"
-        " -f " + config['stringtie']['min_iso'] +
-        " -m " + config['stringtie']['min_length'] +
-        " -G " + config['gtf_ref'] +
+        " -f {params.min_iso}"
+        " -m {params.min_len}"
+        " -G {params.gtf_ref}"
         " -o {output.gtf}" 
         # logs
         " 2> {log.stderr}"

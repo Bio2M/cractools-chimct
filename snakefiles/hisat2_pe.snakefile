@@ -8,20 +8,25 @@ rule hisat_pe:
         bai = config['hisat2']['output_dir']+"/{sample}.bam.bai",
     threads: 
         config['nb_threads']
-    params:
-        tmp = "/tmp/{sample}",
     log:
         stderr = config['hisat2']['log_dir'] + "/{sample}_hisat.log",
-        version = config['version_dir'] + "/hisat-version.txt",
+        version = config['hisat2']['version_file'],
     benchmark:
         "output/benchmarks/hisat/{sample}_hisat.benchmark"
+    params:
+        binary = config['hisat2']['binary'],
+        options = config['hisat2']['options'],
+        index = config['hisat2']['index'],
+        samtools_threads = config['samtools']['threads'],
+        samtools_mem = config ['samtools']['mem'],
+        tmp = "/tmp/{sample}",
     message: 
-        "Executing hisat on the following files {input}"
+        "Executing hisat on the following files {input.r1} {input.r2}"
     shell:
-        "hisat2 "
-        + config['hisat2']['options'] +
+        "{params.binary}"
+        " {params.options}"
         " -p {threads}"
-        " -x " + config['hisat2']['index'] +
+        " -x {params.index}"
         " -1 {input.r1} -2 {input.r2}"
         # logs
         " 2> {log.stderr} |"
@@ -29,8 +34,8 @@ rule hisat_pe:
         " samtools view -bS - |"
         " samtools sort "
         " -T {params.tmp} "
-        " -@" + config['samtools']['threads'] +
-        " -m " + config ['samtools']['mem'] +
+        " -@{params.samtools_threads}"
+        " -m {params.samtools_mem}"
         " - -o {output.bam}"
         # index
         " && samtools index {output.bam} {output.bai} "

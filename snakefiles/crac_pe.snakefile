@@ -9,20 +9,24 @@ rule crac_pe:
         summary = config['crac']['summary_dir'] + "/{sample}.summary",
     threads: 
         config['nb_threads'],
-    params:
-        tmp = "/tmp/{sample}",
     log:
         stderr = config['crac']['log_dir'] + "/{sample}_crac.log",
-        version = config['version_dir'] + "/crac-version.txt",
+        version = config['crac']['version_file'],
     benchmark:
-        "output/benchmarks/crac/{sample}_crac.benchmark"
+        config['crac']['benchmark_dir'] + "/{sample}_crac.benchmark",
+    params:
+        binary = config['crac']['binary'],
+        options = config['crac']['options'],
+        crac_index = config['crac']['index'],
+        crac_kmer_len = config['crac']['kmer_len'],
+        tmp = "/tmp/{sample}",
     message: 
         "Executing crac on the following files {input}"
     shell:
-        config['crac']['binary'] + " "
-        + config['crac']['options'] +
-        " -i " + config['crac']['index'] +
-        " -k " + config['crac']['kmer_len'] +
+        "{params.binary}"
+        " {params.options}" 
+        " -i {params.crac_index}"
+        " -k {params.crac_kmer_len}"
         " --summary {output.summary}"
         " --nb-threads {threads}"
         " -r {input.r1} {input.r2}"

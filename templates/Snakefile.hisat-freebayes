@@ -43,11 +43,10 @@ rule all:
         #expand(config['cractools']['output_dir']['mutations']+"/{sample}.vcf", sample=SAMPLES),
         #config['extract_common_chimeras']['output_dir'] + "/common_chimeras.txt",
     log:
-        version = config['version_dir'] + "/snakemake.txt",
+        version = "output/snakemake.version",
     shell:
         "echo snakemake versions $(snakemake --version) > {log.version}"
-    #version:
-    #    SNAKEMAKE_VERSION
+
 
 onsuccess:
     print("Workflow finished, no error")

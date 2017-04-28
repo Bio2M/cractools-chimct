@@ -1,13 +1,14 @@
 #!/bin/bash
 
 { time snakemake \
+    -ap \
     -j 99 \
     --cluster-config cluster.yml \
     --cluster "sbatch \
         -A {cluster.account} \
         -p {cluster.partition} \
         -n {cluster.n}" ;
-} 2> log.err >log.out
+} 2>output/snakemake.log
 
 
 # Move slurm output in logs directory

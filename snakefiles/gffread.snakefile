@@ -16,14 +16,17 @@ rule gffread:
         config['gffread']['output_file'],
     log:
         stderr = config['gffread']['log_file'],
-        version = config['version_dir'] + "/gffread-version.txt",
+        version = config['gffread']['version_file'],
     benchmark:
-        "output/benchmarks/gffread/gffread.benchmark"
+        config['gffread']['benchmark_file'],
+    params:
+        binary = config['gffread']['binary'],
+        options = config['gffread']['options'],
     message: 
-        "Executing gffread"
+        "Executing gffread on {input.gtf}"
     shell:
-        config['gffread']['binary'] + 
-        config['gffread']['options'] +
+        "{params.binary}"
+        " {params.options}"
         " {input.gtf}"
         " -g {input.ref}"
         " -w {output}"
