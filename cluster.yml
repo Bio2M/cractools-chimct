@@ -1,7 +1,9 @@
 __default__ :
-    account : "benoit"
-    partition: "debug"
-    n : 10
+    account:    "benoit"
+    partition:  "std"
+    jobname:    "{wildcards.sample}"
+    output:     "{wildcards.sample}_%j.log"
+    n :         10
 
 histat2_pe :
     n : 10
