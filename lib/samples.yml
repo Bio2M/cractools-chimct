@@ -1,0 +1,45 @@
+excluded:
+  glop.yml:
+    reason: bad extension (not fastq.gz)
+  sample10.fasta.gz:
+    reason: bad extension (not fastq.gz)
+  sample10.fastq.zip:
+    reason: bad extension (not fastq.gz)
+  sample7.fastq:
+    reason: bad extension (not fastq.gz)
+  sample8.txt:
+    reason: bad extension (not fastq.gz)
+  sample9:
+    reason: bad extension (not fastq.gz)
+fastq_dir: ../input/fastq
+samples:
+  sample1:
+    assay: total
+    paired: true
+    specie: null
+    stranded: null
+  sample2:
+    assay: polyA
+    paired: true
+    specie: null
+    stranded: null
+  sample3_1:
+    assay: null
+    paired: false
+    specie: null
+    stranded: null
+  sample4_2:
+    assay: null
+    paired: false
+    specie: null
+    stranded: null
+  sample5:
+    assay: null
+    paired: false
+    specie: null
+    stranded: null
+  sample6:
+    assay: null
+    paired: false
+    specie: null
+    stranded: null

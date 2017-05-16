@@ -1,6 +1,6 @@
 fastq_dir:
-    /students/BIO2M/commun/LAM_Sauvageau/sra/Homo_sapiens/PRJNA278767/fastq_GSM
+    input
 samples:
-    GSM1636927: ''
-    GSM1636928: ''
-    # GSM1636929: ''
+    GSM1636667: ''
+    GSM1636668: ''
+    

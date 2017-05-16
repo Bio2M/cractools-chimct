@@ -8,6 +8,10 @@
 *.err
 *.out
 
+# python
+__pycache__
+__init__.py
+
 # Commands 
 CracTools.cfg
 

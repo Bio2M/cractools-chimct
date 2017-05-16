@@ -1,6 +1,15 @@
+# Global snakefile
 """
-Date: Fabruary 2017
+Author: B. Guibert
+Affiliation: Bio2M
+Aim: projet LncRNA
+Date: May 2017
+Run: ./snake-slurm.sh
+version: 0.1 
 """
+
+# snaketools builds and/or get samples file 
+import lib.snaketools as snktools
 
 # Config file
 configfile: "config.yml"
