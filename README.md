@@ -19,31 +19,31 @@ On se retrouve avec l’arborescence suivante :
 ├── Snakefile -> templates/Snakefile.crac-chimct-ctextract-extcomchims  
 └── snake-slurm.sh  
 
-**lib :**
+__lib :__
 
 Pour y mettre du code à nous
 snakefiles : 
 contient des fichiers Snakefile, chacun avec une "règle". Ces fichiers seront invoqués par des instructions includes du fichier Snakefile "maître". En usage courant, on ne modifie pas ces fichiers
 
-**Templates :**
+__Templates :__
 
 sont stockées des fichier Snakefiles "maîtres", que l’on peut réutiliser tel quels ou en les modifiant. Ils chargent et invoquent des règles contenues dans le répertoire snakefiles.
 
-**Cluster.yml :**
+__Cluster.yml :__
  
 Liés à slurm, ce fichier permet de récupérer des expressions snakemake pour les réutiliser dans slurm. Il permet aussi d’avoir des paramétrages slurm en fonction des règles snakemake (par exemple, la règle http_download n’utilisera que 4 nœuds maximum).
 Config.yml :
 fichier au format yaml, il contient les paramètres à utiliser pour son pipeline, règle par règle. Par exemple, on y défini le chemin des fichiers fastq, le nombre de threads à utiliser, les options pour les différentes commandes, etc. Ce fichier sera systématiquement a adapter en fonction de ses besoins.
 
-** Samples.yml : **
+__Samples.yml :__
 
 Un autre fichier au format yaml, contenant le nom des échantillons, sans le répertoire ni l’extension, et pour les fichiers fastq pairés sans le numéro de paire ni le signe de liaison (undersore souvent)
 
-** Snakefile : **
+__Snakefile :__
 
 lien symbolique vers un des fichiers du répertoire template. On peut aussi créer sont propre fichier "Snakefile". On utilise le template le plus proche de ses besoins, en le modifiant au besoin. 
 
-** Snake-slurm.sh : **
+__Snake-slurm.sh :_
 
 script shell invoquant snakemake dans un environnement de cluster de calcul slurm. En général, il n’est pas nécessaire de la modifier.
 
