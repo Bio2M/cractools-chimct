@@ -15,7 +15,7 @@ configfile: "samples.yml"
 
 # variables from configfile
 # fastq parameters
-FASTQ_DIR = config['fastq_dir']
+FASTQ_DIR = config['raw_dir']
 SAMPLES = expand(config['samples'])
 # bam parameters
 BAM_DIR = config['crac']['output_dir']

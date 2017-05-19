@@ -1,0 +1,65 @@
+# Global snakefile
+
+"""
+Author: B. Guibert - S. Riquier
+Affiliation: Bio2M
+Aim: projet LncRNA
+Date: May 2017
+Run: ./snake-slurm.sh
+
+files.bam
+    |--stingtie
+        |--stringtie_merge
+            |--bedtools_subtrack
+            |     |--gtf_exon_remove
+            |         |--gffread
+            |-- bedtools_intersect
+            
+"""
+
+# Config file
+configfile: "samples.yml"
+configfile: "config.yml"
+
+
+# variables from configfile
+SAMPLES = expand(config['samples'])
+
+# bam parameters
+BAM_DIR = config['raw_dir']
+
+# others
+EMAIL = config['email']
+
+# includes
+#include: 'snakefiles/crac_pe.snakefile'
+include: 'snakefiles/stringtie.snakefile'
+include: 'snakefiles/stringtie_merge.snakefile'
+include: 'snakefiles/bedtools_subtract.snakefile'
+include: 'snakefiles/gtf_exon_remove.snakefile'
+include: 'snakefiles/gffread.snakefile'
+include: 'snakefiles/bedtools_intersect.snakefile'
+
+
+rule all:
+    input:
+        # expand(config['stringtie']['output_dir'] + "/{sample}_stringtie.gtf", sample=config['samples']),
+        # config['stringtie']['merge_gtf_file'],
+        # config['bedtools']['subtract_gtf_file'],
+        # config['gtf_exon_remove']['output_file'],
+        config['gffread']['output_file'],
+        config['bedtools']['intersect_gtf_file'],
+    log:
+        version = "output/snakemake.version",
+    shell:
+        "echo snakemake versions $(snakemake --version) > {log.version}"
+
+
+onsuccess:
+    print("Workflow finished, no error")
+    #shell( 'mail -s "$HOSTNAME: Workflow finished, no error" ' + EMAIL + ' < {log}')
+
+onerror:
+    print("An error occured, pas glop!")
+    #shell('mail -s "$HOSTNAME: an error occurred on Workflow" ' + EMAIL + ' < {log}')
+

@@ -11,7 +11,18 @@ genome:
 
 gtf_ref:
     # '/data/annotations/human/ensembl.gff'
-    '/data/annotations/human/Homo_sapiens.GRCh38.86.gtf'
+    # '/data/annotations/human/Homo_sapiens.GRCh38.86.gtf'
+    '/data/annotations/human/Homo_sapiens.GRCh38.88.gtf'
+
+
+################################################################################
+#   PRE PROCESSING
+################################################################################
+
+http:
+    keep_local: False
+    output_dir: tmp
+
 
 ################################################################################
 #   MAPPING
@@ -79,6 +90,7 @@ cractools:
     extract_options:            '--coverless-splices'
                                 # --coverless-splices --stranded
 
+
 extract_common_chimeras:
     binary:         'extractCommonChimeras.pl'
     output_file:    'output/extract_common_chimeras/extract_common_chimeras.txt'
@@ -88,6 +100,7 @@ extract_common_chimeras:
     version_file:   'output/extract_common_chimeras/version/extract_common_chimeras.version'
     # option_genome:  True
     options:        ''
+
 
 ################################################################################
 #   VARIANT CALLING
@@ -102,6 +115,7 @@ freebayes:
     bed_ref_file:   '../manifest.bed'
     options:        ''
                     # "-C 10 -F 0.008"
+
 
 ################################################################################
 #   ANNOTATION & CLASSIFICATION
@@ -128,9 +142,6 @@ chimct:
     options:            '--verify-splice --detailed-sam  --stranded'
                         #--verify-splice --detailed-sam --stranded --keep-ig --est 
 
-################################################################################
-#   RNA RECONSTRUCTION
-################################################################################
 
 stringtie:
     binary:                 'stringtie'
@@ -138,19 +149,18 @@ stringtie:
     log_dir:                'output/stringtie/logs'
     benchmark_dir:          'output/stringtie/benchmark'
     version_file:           'output/stringtie/version/stringtie.version'
-    nb_threads:             '4'
+    nb_threads:             '5'
     min_length:             '200'
     min_iso:                '0.2'
+    min_reads_coverage:     '5'
+    min_junct_coverage:     '5'
     options:                ''
     # stringtie merge
-    merge_gtf_file:         'output/stringtie/merge/unannotated_stringtie_merge.gtf'
-    merge_log_file:         'output/stringtie/merge/unannotated_stringtie_merge.log'
-    merge_benchmark_file:   'output/stringtie/merge/unannotated_stringtie_merge.benchmark'
+    merge_gtf_file:         'output/stringtie_merge/stringtie_merge.gtf'
+    merge_log_file:         'output/stringtie_merge/stringtie_merge.log'
+    merge_benchmark_file:   'output/stringtie_merge/stringtie_merge.benchmark'
     merge_options:          ''
 
-################################################################################
-#   RNA ANNOTATION
-################################################################################
 
 bedtools:
     binary:                     'bedtools'
@@ -158,35 +168,36 @@ bedtools:
     benchmark_dir:              'output/bedtools/benchmark'
     version_file:               'output/bedtools/version/bedtools.version'
     # subtrack
-    subtrack_gtf_file:          'output/bedtools/bedtools_subtrack.gtf'
-    subtrack_log_file:          'output/bedtools/bedtools_subtrack.log'
-    subtrack_benchmark_file:    'output/bedtools/bedtools_benchmark.log'
+    subtract_gtf_file:          'output/bedtools_subtract/bedtools_subtract.gtf'
+    subtract_log_file:          'output/bedtools_subtract/bedtools_subtract.log'
+    subtract_benchmark_file:    'output/bedtools_subtract/bedtools_subtract.benchmark'
+    subtract_version_file:      'output/bedtools_subtract/bedtools.version'
     subtract_options:           '-A'
     # intersect
-    intersect_gtf_file:         'output/bedtools/bedtools_intersect.gtf'
-    intersect_log_file:         'output/bedtools/bedtools_intersect.log'
-    intersect_benchmark_file:    'output/bedtools/bedtools_intersect.log'
+    intersect_gtf_file:         'output/bedtools_intersect/bedtools_intersect.gtf'
+    intersect_log_file:         'output/bedtools_intersect/bedtools_intersect.log'
+    intersect_benchmark_file:   'output/bedtools_intersect/bedtools_intersect.benchmark'
+    intersect_version_file:      'output/bedtools_intersect/bedtools.version'
     intersect_options:          '-wa -u -S'
 
+
 gtf_exon_remove:
-    binary:             'perl /data/bin/gtf_exon_remove.pl'
-    output_file:        'output/gtf_exon_remove/unannotated_v2.gtf'
+    binary:             'gtf_exon_remove.pl'
+    output_file:        'output/gtf_exon_remove/gtf_exon_remove.gtf'
     log_file:           'output/gtf_exon_remove/gtf_exon_remove.log'
     benchmark_file:     'output/gtf_exon_remove/gtf_exon_remove.benchmark'
-    version_file:       'output/gtf_exon_remove/version/gtf_exon_remove.version'
+    version_file:       'output/gtf_exon_remove/gtf_exon_remove.version'
     options:            ''
+
 
 gffread:
     binary:             'gffread'
-    output_file:        'output/gffread/unannotated_lincRNA_v2.fa'
+    output_file:        'output/gffread/gffread.fa'
     log_file:           'output/logs/gffread.log'
     benchmark_file:     'output/gffread/gffread.benchmark'
-    version_file:       'output/gffread/version/gffread.version'
+    version_file:       'output/gffread/gffread.version'
     options:            ''
 
-################################################################################
-#   ABUNDANCE
-################################################################################
 
 kallisto:
     binary: ""

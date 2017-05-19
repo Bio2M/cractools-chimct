@@ -1,1 +1,1 @@
-templates/Snakefile.crac-chimct-ctextract-extcomchims
+templates/Snakefile.stringtie_bedtools_gtfExonRemove_gffread

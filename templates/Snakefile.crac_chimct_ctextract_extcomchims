@@ -26,7 +26,7 @@ GENOME = config['genome']
 THREADS = config['nb_threads']
 
 # crac parameters
-FASTQ_DIR = config['fastq_dir']
+FASTQ_DIR = config['raw_dir']
 SAMPLES = expand(config['samples'])
 BAM_DIR = config['crac']['output_dir']
 SUMMARY_CRAC_DIR = config['crac']['summary_dir']

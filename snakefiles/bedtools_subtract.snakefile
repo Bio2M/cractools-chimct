@@ -14,12 +14,12 @@ rule bedtools_subtrack:
         a = config['stringtie']['merge_gtf_file'],
         b = config['gtf_ref'],
     output:
-        config['bedtools']['subtrack_gtf_file'],
+        config['bedtools']['subtract_gtf_file'],
     log:
-        stderr = config['bedtools']['subtrack_log_file'],
-        version = config['bedtools']['version_file'],
+        stderr = config['bedtools']['subtract_log_file'],
+        version = config['bedtools']['subtract_version_file'],
     benchmark:
-        config['bedtools']['subtrack_benchmark_file'],
+        config['bedtools']['subtract_benchmark_file'],
     params:
         binary = config['bedtools']['binary'],
         options = config['bedtools']['subtract_options']

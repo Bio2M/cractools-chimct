@@ -1,7 +1,7 @@
 # Stringtie assembling
 rule stringtie:
     input:
-        bam = BAM_DIR + "/{sample}.bam",
+        bam = config['raw_dir'] + "/{sample}.bam",
     output:
         gtf = config['stringtie']['output_dir'] + "/{sample}_stringtie.gtf",
     threads: 
@@ -18,17 +18,17 @@ rule stringtie:
         min_len = config['stringtie']['min_length'],
         gtf_ref = config['gtf_ref'],
     message: 
-        "Executing stringtie on the following files {input}"
+        'Executing stringtie on the following files {input}'
     shell:
-        "{params.binary}"
-        " {params.options}"
-        " {input.bam}"
-        " -f {params.min_iso}"
-        " -m {params.min_len}"
-        " -p {threads}"
-        " -G {params.gtf_ref}"
-        " -o {output.gtf}" 
+        '{params.binary}'
+        ' {params.options}'
+        ' {input.bam}'
+        ' -f {params.min_iso}'
+        ' -m {params.min_len}'
+        ' -p {threads}'
+        ' -G {params.gtf_ref}'
+        ' -o {output.gtf}'
         # logs
-        " 2> {log.stderr} "
+        ' 2> {log.stderr} '
         # stringtie version
-        " && echo 'stringtie version $(stringtie --version)' > {log.version}"
+        ' && echo "stringtie version $(stringtie --version)" > {log.version}'

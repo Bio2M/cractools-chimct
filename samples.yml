@@ -1,4 +1,6 @@
-fastq_dir:
+raw_dir:
+    # for url http://example.com/dir --> 'example.com/dir'
+    # 'getdata.montp.inserm.fr/Bio2M/external/sra/Homo_sapiens/Sauvageau-GSE62190/part3-GSE62190/mapping/crac'
     input
 samples:
     GSM1636667: ''

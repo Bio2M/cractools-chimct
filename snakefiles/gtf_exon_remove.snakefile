@@ -12,7 +12,7 @@ On a au final un gtf qui ne contient que ce qui ne croise pas quelque chose de c
 
 rule gtf_exon_remove:
     input:
-        config['bedtools']['subtrack_gtf_file'],
+        config['bedtools']['subtract_gtf_file'],
     output:
         config['gtf_exon_remove']['output_file'],
     log:
