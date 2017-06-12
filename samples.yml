@@ -1,8 +1,8 @@
 raw_dir:
-    # for url http://example.com/dir --> 'example.com/dir'
+    # For rule http_download, url: http://getdata.montp.inserm.fr/ == marygold:/students/BIO2M/nas/
     # 'getdata.montp.inserm.fr/Bio2M/external/sra/Homo_sapiens/Sauvageau-GSE62190/part3-GSE62190/mapping/crac'
-    input
+    input/raw
 samples:
-    GSM1636667: ''
-    GSM1636668: ''
+    GSM1521606: ''
+    GSM1521607: ''
     

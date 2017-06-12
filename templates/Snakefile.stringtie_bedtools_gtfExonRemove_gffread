@@ -8,7 +8,7 @@ Date: May 2017
 Run: ./snake-slurm.sh
 
 files.bam
-    |--stingtie
+    |--stringtie
         |--stringtie_merge
             |--bedtools_subtrack
             |     |--gtf_exon_remove

@@ -5,7 +5,6 @@ email:      'benoit.guibert@free.fr'
 nb_threads: 12
 
 genome:
-    # '
     # '/data/genomes/GRCh37/GRCh37.fa'
     '/data/genomes/GRCh38/GRCh38.fa'
 
@@ -200,9 +199,9 @@ gffread:
 
 
 kallisto:
-    binary: ""
-    index:  "/data/indexes/kallisto/GRCh38.idx"
-    output_dir: "output/kallisto"
-    log_dir: "output/kallisto/log"
-    benchmark_dir: 'output/kallisto/benchmark'
-    options: ""
+    binary:         'kallisto'
+    index:          '/data/indexes/kallisto/GRCh38.idx'
+    output_dir:     'output/kallisto'
+    log_dir:        'output/kallisto/log'
+    benchmark_dir:  'output/kallisto/benchmark'
+    options:        ''
