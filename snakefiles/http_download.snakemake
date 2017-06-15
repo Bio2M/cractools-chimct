@@ -1,9 +1,0 @@
-# http_download
-
-rule http_download:
-    input:
-        HTTP.remote(config['raw_dir'] + "/{sample}." + config['file_extension'], keep_local=config['http']['keep_local']),
-    output:
-        temp(config['http']['output_dir'] + "/{sample}." + config['file_extension']),
-    shell:
-        "mv {input} {output}"

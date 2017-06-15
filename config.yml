@@ -13,14 +13,16 @@ gtf_ref:
     # '/data/annotations/human/Homo_sapiens.GRCh38.86.gtf'
     '/data/annotations/human/Homo_sapiens.GRCh38.88.gtf'
 
-
 ################################################################################
 #   PRE PROCESSING
 ################################################################################
 
 http:
     keep_local: False
-    output_dir: tmp
+    input_dir:  
+        # For rule http_download, url: http://getdata.montp.inserm.fr/ == marygold:/students/BIO2M/nas/
+        # 'getdata.montp.inserm.fr/Bio2M/external/sra/Homo_sapiens/Sauvageau-GSE62190/part3-GSE62190/mapping/crac'
+        'getdata.montp.inserm.fr/Bio2M/external/lncRNA_AML/raw/bam'
 
 
 ################################################################################
