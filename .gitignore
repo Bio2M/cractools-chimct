@@ -4,6 +4,9 @@
 /output
 /input
 /tmp
+samples.yml
+
+# divers
 *.svg
 *.err
 *.out

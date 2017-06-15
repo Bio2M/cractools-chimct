@@ -46,6 +46,8 @@ Le répertoire ``templates/`` contient la configuration pour un certain nombre d
     Snakefile.hisat_freebayes
     Snakefile.hisat_freeb_extcomchim_chimct_cractools
     Snakefile.stringtie_bedtools_gtfExonRemove_gffread
+    Snakefile.http_stringtie_bedtools_gtfExonRemove_gffread
+    
 
 
 ### Utiliser un template existant
@@ -53,7 +55,7 @@ Il suffit de créer un lien symbolique
 
     ln -s templates/Snakefile.un_template Snakefile
 
-Sinon, il faut créer un nouveau Snakefile, de préférence à partir d'un template existant
+Sinon, il faut créer un nouveau fichier **Snakefile**, de préférence à partir d'un template existant.
 
 
 ### Dans un template
@@ -93,16 +95,15 @@ On peut passer des variables, en respectant les règles propres à python 3. Cel
     BAM_DIR = config['raw_dir']
     EMAIL = config['email']
 
-On charge des fichiers contenant des règles. Il y a un fichier par règle. Ceci permet la réutilisation des règles déjà créées et la maintenabilité.
+On charge des fichiers contenant des règles. Il y a un fichier de règles par outil. Par exemple, le fichier ``crac.snakefile`` contient les règles ``crac_pe`` et ``crac_se``. Ce découpage en sous-fichiers permet la réutilisation des règles déjà créées et la facilite la maintenabilité.
 
     # includes
     include: 'snakefiles/stringtie.snakefile'
-    include: 'snakefiles/bedtools_subtract.snakefile'
+    include: 'snakefiles/bedtools.snakefile'
     include: 'snakefiles/gffread.snakefile'
-    include: 'snakefiles/bedtools_intersect.snakefile'
 
 
-La première règle du fichier, ici ``all`` permet à Snakemake de déduire les autres règles à appliquer.
+La première règle du fichier, ici ``all`` permet à snakemake de déduire les autres règles à appliquer.
 
     rule all:
         input:
@@ -127,18 +128,19 @@ La première règle du fichier, ici ``all`` permet à Snakemake de déduire les 
 Le fichier ``samples.yml`` contient :
 
 
-* le répertoire contenant les données initiales (en général des fastq) ;
+* le répertoire contenant les données initiales (en général des fastq ou des bam) ;
 * la liste des échantillons.
 
 
     raw_dir:
-        # For rule http_download, url: http://getdata.montp.inserm.fr/
-        # 'getdata.montp.inserm.fr/Bio2M/external/sra/GSE62190/mapping/crac'
+        # /tmp when http.snakefile used
         input/raw
     samples:
         GSM1521606: ''
         GSM1521607: ''
         GSM1521608: ''
+
+**A noter** : lorsqu'on utilise la règle ``http_download`` (qui permet de télécharger les fichiers pour travailler en local, utile pour les clusteurs de calcul), la préférence est de positionner ``raw_dir`` à ``/tmp``
 
 Le fichier ``samples.yml`` peut être créé manuellement ou généré grâce la commande ``lib/snaketools.py ``:
 
@@ -183,7 +185,7 @@ Il faudra vérifier et modifier le cas échéant ces paramètres.
         version_file:   'output/crac/version/crac.version'
         options:        '--nb-tags-info-stored 10000 --stranded --detailed-sam'
 
-**Nota** : bien noter que les paramètres sont liées aux commandes, plutôt qu'aux règles. par exemple, pour crac, il y aura deux règles, ``crac_pe`` et ``crac_se`` pour le paired-end et le single-end, mais il n'y a qu'une seule section ``crac`` comprenant les paramètres des deux règles.
+**Nota** : bien noter que les paramètres sont liées aux commandes, plutôt qu'aux règles. par exemple, pour crac, il y aura deux règles, ``crac_pe`` et ``crac_se`` pour les modes paired-end et single-end, mais il n'y a qu'une seule section ``crac`` comprenant les paramètres des deux règles.
 
 
 # 5. La commande Snakemake
@@ -206,6 +208,8 @@ Très pratique pour tester son pipeline
 
 
 #### Indiquer le nombre de cœurs à utiliser
+Que l'on utilisera systématiquement, le pipeline s'exécutant sur un seul thread sinon
+
     $ snakemake --cores 12
 
 Cet argument est en corrélation avec l'instruction ``threads:`` définies dans les règles snakemake.
@@ -234,7 +238,6 @@ Le pipeline n'est pas exécuté dans ce cas (``-n`` implicite)
 
     $ snakemake --dag | dot -Tsvg > deg.svg
 
-__Nota__ : créez un graphique avec très peu de samples, pour la lisibilité.
 
 #### Forcer l’execution à un certain stade
 Comme pour un --forceall, mais le pipeline sera exécuté à partir de la règle invoquée
@@ -248,10 +251,11 @@ Comme pour un --forceall, mais le pipeline sera exécuté à partir de la règle
 
 # 6. slurm pour paralléliser les taches
 
+
 ### Lancer le pipeline sur le cluster de calcul
 Le serveur **Marygold** est un serveur de calcul, comprenant 5 nœuds. Snakemake est capable d'en utiliser les fonctionalités.
 
-Sur Marigold, on ne lance pas la commande snakemake, mais le script fournit ``snake-slurm.sh`` :
+Sur Marigold, on ne lance pas la commande snakemake, mais le script fourni ``snake-slurm.sh`` :
 
     $ snake-slurm.sh
 
@@ -311,7 +315,7 @@ Dans l'exemple ci-dessus, les paramètres par défaut sont :
 Mais pour la règle ``hisat2_pe``, le nombre maxi de cœurs sera de 16.
 
 
-# 7. Les fichiers créés
+# 7. Les fichiers générés
 
 Par défaut, tous les fichiers générés par le workflow sont stockés dans un répertoire ``output/``.
 
@@ -352,6 +356,5 @@ Par exemple, voici le contenu du répertoire ``chimct`` :
 * ``benchmark`` : contient la durée prise pour l'exécution de la tâche, en secondes et en heures/minutes/secondes ;
 * ``logs`` : contient les informations normalement renvoyées à l'écran par la commande utilisée. Une taille différente de quelques d'un ou quelques uns des fichiers peut vouloir dire que des erreurs ont été consignées dans le fichier ;
 * ``version`` : contient la version de la commande utilisée.
-
 
 

@@ -33,11 +33,11 @@ SNAKEMAKE_VERSION = subprocess.check_output("snakemake --version", shell=True)
 
 # includes
 
-#include: "snakefiles/crac_pe.snakefile"
+#include: "snakefiles/crac.snakefile"
 include: "snakefiles/cractools_extract.snakefile"
 include: "snakefiles/chimct.snakefile"
 include: "snakefiles/extract_common_chimeras.snakefile"
-include: "snakefiles/hisat2_pe.snakefile"
+include: "snakefiles/hisat2.snakefile"
 include: "snakefiles/freebayes.snakefile"
 
 
