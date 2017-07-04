@@ -1,0 +1,23 @@
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{$CHUNKS_DIR/chimCT-workflow.png}
+\caption{ChimCT is a pipeline dedicated to analyze CRAC mapping output (in SAM format)
+in order to extract, filter, annotate and classify chimeras identified by CRAC's algorithm. 
+Two files are required in input, a mapping file in SAM or BAM format and a GFF file (Global 
+Feature Format) used to perform annotation. Such a file can be generated from any 
+annotation database, for example "Ensembl". The first step of the chimCT pipeline is to 
+extract all chimeras from the SAM file and gather all reads that belong to the same chimeric 
+alignments. To this aim, those chimeric coordinates are stored into a in-memory structure 
+for an easy access.
+In a second step, all chimeras are processed one by one in order to classify them using 
+a rank value. This rank is computed by aggregating several sources of information and 
+takes in account the nature and the specificity of the chimera (eg. its class, its coverage, 
+its annotation). An evolving architecture has been designed for the calcul of the rank 
+computing, including several modules called "Analyzer". An analyzer takes a chimera 
+as input and applies a process (ig. Annotation, GSNAP, Stringent ags, etc) to compute 
+a "confidence score" that will contribute for the rank computing. These "analyzers" are 
+also designed to provide additional information about the chRNA that will be printed 
+in the output file. Once all chimeras have been classified, chimCT creates an output file 
+using a friendly home-made format, since no standardized format is able to store chimeric 
+coordinates.}
+\label{fig:chimCT_workflow}
+\end{figure}

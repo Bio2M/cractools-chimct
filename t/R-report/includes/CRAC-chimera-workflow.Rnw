@@ -1,0 +1,17 @@
+\begin{figure}[h!]
+\includegraphics[width=\columnwidth]{$CHUNKS_DIR/CRAC-chimera-workflow.png}
+\caption{CRAC is not only a mapping software but it also allows to align reads with
+mismatches or gaps and determine the cause of such an alignment: sequence errors, indels, 
+SNVs, splices and in our case, chimeras (also known as "aberrant" splice junctions). CRAC 
+software provides a specific workflow to reduce false positive calls for chimeras. There is 
+two "check-points" used when a chimeric alignment has been detected in a read. 
+If CRAC has been launched with \textit{strigent-chimera} option, supplementary controls will be 
+apply on CRAC's algorithm in order to discard chimeric alignements. 
+The second check-point is only available if input reads are paired-end. That means we have 
+pairs of reads that came from the same region and we expect to find them together in the 
+reference genome. If such data are available, CRAC will check if the alignments found
+for the paired read confirms or infirm the validity of the chimeric alignment. These both 
+check-points will decide if this chimeric alignment should be considered as a true 
+chimera or discarded and classified as "Biological undetermined".}
+\label{fig:CRAC-chimera-workflow}
+\end{figure}

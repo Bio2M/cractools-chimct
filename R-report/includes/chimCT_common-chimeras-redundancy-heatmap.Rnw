@@ -1,0 +1,41 @@
+<<commonChimerasRedundancyHeatmap,fig.height=14,fig.width=10,results="asis",fig.cap="Chimeras heatmap for each classes.">>=
+
+# local copy of data
+dat_local <- dat
+
+## Add new columns for chimera redundancy
+tab <- as.data.frame(table(dat_local$Name))
+
+names(tab)[2] <- "Freq_Name"
+
+dat_local <- merge(dat_local,tab,by.x='Name',by.y='Var1',all=T)
+
+## Add new column for nb chimera by samples
+tab <- as.data.frame(table(dat_local$Sample))
+
+names(tab)[2] <- "Freq_Sample"
+
+dat_local <- merge(dat_local,tab,by.x='Sample',by.y='Var1',all=T)
+# Reorder data by Chimera_freq and Sample_freq
+dat_local$Name <- reorder(dat_local$Name,dat_local$Freq_Name)
+dat_local$Sample <- reorder(dat_local$Sample,dat_local$Freq_Sample)
+
+for(i in sort(unique(dat_local$Class))) {
+  #cat("\\subsection{Class ")
+  #cat(i)
+  #cat("}")
+  #sub <- subset(dat_local,Class==i & Rank > 85 & Cover < 1000 & Cover > 150)
+  sub <- subset(dat_local,Class==i & Cover < 3000 & Cover > 50)
+  #sub <- subset(dat,Class==i)
+  #theme(axis.text.x = element_text(angle = 60, hjust = 1,size=-0.025*length(sub$Sample)+10.126), axis.text.y = element_text(size=-0.025*length(sub$Name)+10.126)) + 
+  #theme(axis.text.x = element_text(angle = 60, hjust = 1)) + 
+
+  print(ggplot(sub,aes(Sample,Name)) + 
+  theme(axis.text.x = element_text(angle = 60, hjust = 1), axis.text.y = element_text(size=6)) +
+  geom_point(aes(size = Cover, colour=Rank)) + 
+  scale_size(range =c(1,5)) + 
+  scale_color_gradient(low="red",high="blue") +
+  ylab("Fusion genes name") + xlab("Samples") +
+  facet_grid(Freq_Name ~ ., scales = "free", space = "free") + labs(title=paste(c("class", i), collapse = " ")))
+}
+@

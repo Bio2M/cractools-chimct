@@ -1,0 +1,17 @@
+# Makemaker trash files
+MANIFEST.SKIP
+
+# Extra files
+^extra/
+^R-report/
+\.cfg$
+TODO
+
+# Homemade Scripts
+^bin/.*\.pl
+^bin/chimCT-paired
+
+# Temp files
+\.swp$
+\.old$
+\.bak

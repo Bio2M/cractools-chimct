@@ -1,0 +1,19 @@
+\begin{figure}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+<<boxplotRankDispersion,fig.height=4,fig.width=4>>=
+ggplot(dat,aes(factor(Class),Rank)) + geom_boxplot() + xlab("Class") +
+labs(fill = "Class", title="A")
+@
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+<<violinRankDispersion,fig.height=4,fig.width=4>>=
+ggplot(dat,aes(factor(Class),Rank)) + geom_violin() + xlab("class") +
+labs(fill = "Class", title="B")
+@
+\end{minipage}
+\caption{Rank dispersion by class}
+\label{fig:chimCT_rank-dispersion}
+\end{figure}
