@@ -16,8 +16,8 @@ The CracTools-ChimCT software (or simply ChimCT) extracts, formats, classifies a
 This is the simpliest way to install chimCT.
 
 1. Go to the [release page](https://github.com/Bio2M/cractools-chimct/releases) of the github projet.
-1. Download the latest tarball (tar.gz) release : ``wget https://github.com/jaudoux/Bio2M/cractools-chimct/releases/download/v$VERSION/CracTools-ChimCT-$VERSION.tar.gz``
-2. Install the package with cpanm : ``cpanm [-l local_dir] CracTools-ChimCT.tar.gz``
+1. Download the latest tarball (tar.gz) release : ``wget https://github.com/Bio2M/cractools-chimct/archive/v0.14.tar.gz -O cractools-chimct.tar.gz``
+2. Install the package with cpanm : ``cpanm [-l local_dir] cractools-chimct.tar.gz``
 
 If you do not have admin rights, you can use the option ``-l`` to specify cpanm a local directory to install simCT.
 
