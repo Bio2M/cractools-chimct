@@ -1,25 +1,2 @@
-# Snakemake files
-/.snakemake
-/fastq
-/output
-/input
-/tmp
-samples.yml
-
-# divers
-*.svg
-*.err
-*.out
-
-# python
-__pycache__
-__init__.py
-
-# Commands 
-CracTools.cfg
-
-# git files
-.git
-
-# temp files
-*.swp
+/Cractools-chimCT*
+Cractools-chimCT*.tat.gz
