@@ -9,15 +9,15 @@ The CracTools-ChimCT software (or simply ChimCT) extracts, formats, classifies a
 
 * Perl5 distribution
 * [cpanm](http://search.cpan.org/~miyagawa/App-cpanminus-1.7043/lib/App/cpanminus.pm) (CPAN minus)
-* [CracTools-core](https://metacpan.org/release/CracTools) perl package. It will be automaically installed by cpanm along with all other CPAN dependancies.
+* [CracTools-core](https://metacpan.org/release/CracTools) perl package. It will be automatically installed by cpanm along with all other CPAN dependancies.
 
 ## Install from tarball
 
 This is the simpliest way to install chimCT.
 
 1. Go to the [release page](https://github.com/Bio2M/cractools-chimct/releases) of the github projet.
-1. Download the latest tarball (tar.gz) release : ``wget https://github.com/Bio2M/cractools-chimct/archive/v0.14.tar.gz -O cractools-chimct.tar.gz``
-2. Install the package with cpanm : ``cpanm [-l local_dir] cractools-chimct.tar.gz``
+1. Download the latest tarball (tar.gz) release : ``wget https://github.com/Bio2M/cractools-chimct/releases/download/v0.14/CracTools-chimCT-0.14.tar.gz``
+2. Install the package with cpanm : ``cpanm [-l local_dir] CracTools-chimCT-0.14.tar.gz``
 
 If you do not have admin rights, you can use the option ``-l`` to specify cpanm a local directory to install simCT.
 
@@ -168,12 +168,13 @@ artefacts.
     analyzers (see table below).
 
 |                 | Class 1 | Class 2 | Class 3 | Class 4 |
-|                 |      -: |      -: |      -: |      -: |
+| --------------- | ----:-: | ----:-: | ----:-: | ----:-: |
 | Annotation      |   xxxx  |   xxxx  |   xxxx  |   xxxx  |
 | GSNAP Mapping   |     xx  |         |   x     |      x  |
 | PE coverage     |    xxx  |     xx  |         |     xx  |
 | Stringent flags |     xx  |      x  |      x  |      x  |
 | Fusion distance |         |         |     xx  |         |
+
 
 #### OUTPUT FORMAT
 
