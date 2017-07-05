@@ -8,6 +8,7 @@ The CracTools-ChimCT software (or simply ChimCT) extracts, formats, classifies a
 ## Requirements
 
 * Perl5 distribution
+* gsnap command, provided by [gmap](http://research-pub.gene.com/gmap/) package
 * [cpanm](http://search.cpan.org/~miyagawa/App-cpanminus-1.7043/lib/App/cpanminus.pm) (CPAN minus)
 * [CracTools-core](https://metacpan.org/release/CracTools) perl package. It will be automatically installed by cpanm along with all other CPAN dependancies.
 
@@ -25,8 +26,11 @@ If you do not have admin rights, you can use the option ``-l`` to specify cpanm 
 
 To install chimCT from the sources, you will need [Dist::Zilla](http://dzil.org/) software, which is a Perl package manager.
 
-1. Clone chimCT repository : ``git clone https://github.com/Bio2M/cractools-chimct.git``
-2. Build and install : ``dzil install --install-command 'cpanm [-l LOCAL_INSTALLATION_DIRECTORY].'`` (ommit the `-l` option if you want to install chimCT to the system).
+1. Clone chimCT repository :   
+``git clone https://github.com/Bio2M/cractools-chimct.git``
+2. Build and install :   
+``dzil install --install-command 'cpanm [-l LOCAL_INSTALLATION_DIRECTORY].'``   
+(ommit the `-l` option if you want to install chimCT to the system).
 
 
 
@@ -163,9 +167,10 @@ artefacts.
 
 ####  PRIMERS DESIGN
 #### CLASSIFICATION & CHIM_VALUES
-    We define a chim_value for each chimera combining scores given by the
-    analyzers. Depending on the chimera class, weights are applied for each
-    analyzers (see table below).
+    
+We define a chim_value for each chimera combining scores given by the
+analyzers. Depending on the chimera class, weights are applied for each
+analyzers (see table below).
 
 |                 | Class 1 | Class 2 | Class 3 | Class 4 |
 | --------------- | :-----: | :-----: | :-----: | :-----: |
