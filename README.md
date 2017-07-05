@@ -168,7 +168,7 @@ artefacts.
     analyzers (see table below).
 
 |                 | Class 1 | Class 2 | Class 3 | Class 4 |
-| --------------- | ----:-: | ----:-: | ----:-: | ----:-: |
+| --------------- | :-----: | :-----: | :-----: | :-----: |
 | Annotation      |   xxxx  |   xxxx  |   xxxx  |   xxxx  |
 | GSNAP Mapping   |     xx  |         |   x     |      x  |
 | PE coverage     |    xxx  |     xx  |         |     xx  |
