@@ -2,7 +2,8 @@
 
 The CracTools-ChimCT software (or simply ChimCT) extracts, formats, classifies and annotes chimeras identified by CRAC. Chimeric reads are divided in four classes according to the exon organization with respect to the reference annotation.
 
-![chimeric_RNA](https://github.com/Bio2M/cractools-chimct/tree/master/png/Chimeric_RNA_classification)
+![chimeric_RNA](./img/Chimeric_RNA_classification.png)
+
 *Chimeric RNA classification from Bougé AL, Rufflé F, Riquier S, Guibert B, Audoux J, Commes T. RNA-Seq Analysis to Detect Abnormal Fusion Transcripts Linked to Chromothripsis. Methods Mol Biol. 2018;1769:133-156. doi: 10.1007/978-1-4939-7780-2_9. PMID: 29564822*
 
 
